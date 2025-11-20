@@ -1,12 +1,19 @@
 import 'package:cycleiq_saas_mobile/core/di/injection_container_common.dart';
 import 'package:cycleiq_saas_mobile/core/network/network_call/domain/repository/auth_repository.dart';
+import 'package:cycleiq_saas_mobile/src/category/screen/category_screen.dart';
 import 'package:cycleiq_saas_mobile/src/entryPoint/entry_point.dart';
+import 'package:cycleiq_saas_mobile/src/home/screen/home.dart';
 import 'package:cycleiq_saas_mobile/src/login/bloc/login_bloc.dart';
 import 'package:cycleiq_saas_mobile/src/login/screen/loginScreen.dart';
 import 'package:cycleiq_saas_mobile/src/onboarding/screen/onBoarding.dart';
+import 'package:cycleiq_saas_mobile/src/pick_up_request/screen/pickup_request_screen.dart';
+import 'package:cycleiq_saas_mobile/src/pickup_status/screen/pickup_status_screen.dart';
+import 'package:cycleiq_saas_mobile/src/profile/screen/profile.dart';
+import 'package:cycleiq_saas_mobile/src/recycling_centers/screen/recycling_centers_screen.dart';
 import 'package:cycleiq_saas_mobile/src/register/bloc/register_bloc.dart';
 import 'package:cycleiq_saas_mobile/src/register/screen/register_screen.dart';
 import 'package:cycleiq_saas_mobile/src/splash/screens/splash_screen.dart';
+import 'package:cycleiq_saas_mobile/src/track_pick_up/screen/track_pickup_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -52,6 +59,39 @@ final GoRouter router = GoRouter(
         return const EntryPoint();
       },
     ),
+    GoRoute(
+      path: '/homeScreen',
+      builder: (BuildContext context, GoRouterState state) {
+        return const HomeScreen();
+      },
+    ),
+    GoRoute(
+      path: "/pickup-request",
+      builder: (_, _) => const PickupRequestScreen(),
+    ),
+    GoRoute(
+      path: "/pickup-track",
+      builder: (_, _) => const TrackPickupScreen(),
+    ),
+    GoRoute(
+      path: "/centers",
+      builder: (_, _) => const RecyclingCentersScreen(),
+    ),
+    GoRoute(
+      path: '/category/:name',
+      builder: (context, state) {
+        // read path param safely (works for modern go_router)
+        final raw = state.pathParameters['name'] ?? '';
+        final name = raw.isNotEmpty ? Uri.decodeComponent(raw) : 'Unknown';
+
+        return CategoryScreen(categoryName: name);
+      },
+    ),
+    GoRoute(
+      path: "/pickup-status",
+      builder: (_, _) => const PickupStatusScreen(),
+    ),
+    GoRoute(path: "/profile", builder: (_, _) => const ProfileScreen()),
     // GoRoute(
     //   path: '/bottom-navbar',
     //   builder: (BuildContext context, GoRouterState state) {

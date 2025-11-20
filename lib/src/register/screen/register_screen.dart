@@ -1,3 +1,4 @@
+import 'package:cycleiq_saas_mobile/core/services/navigation.dart';
 import 'package:cycleiq_saas_mobile/core/utils/constants/image_strings.dart';
 import 'package:cycleiq_saas_mobile/core/utils/widgets/common_textfield.dart';
 import 'package:cycleiq_saas_mobile/core/utils/widgets/link_button.dart';
@@ -141,7 +142,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     const Text("Already have an account? "),
                     AppLinkButton(
                       text: "Login",
-                      onTap: () => context.go("/loginScreen"),
+                      onTap: () => AppNav.to(context, "/loginScreen"),
                     ),
                   ],
                 ),

@@ -1,3 +1,4 @@
+import 'package:cycleiq_saas_mobile/core/services/navigation.dart';
 import 'package:cycleiq_saas_mobile/src/onboarding/widget/fluid_card.dart';
 import 'package:cycleiq_saas_mobile/src/onboarding/widget/fluid_carousel.dart';
 import 'package:flutter/material.dart';
@@ -13,7 +14,7 @@ class Showcase extends StatefulWidget {
 
 class _ShowcaseState extends State<Showcase> {
   void goToHome() {
-    context.go('/loginScreen'); // Your home route
+    AppNav.to(context, '/loginScreen'); // Your home route
   }
 
   @override

@@ -7,7 +7,7 @@ APIEnvironment environment = APIEnvironment.development;
 class ApiConfig {
   static APIEnvironment environment = APIEnvironment.development;
 
-  static String get   domain {
+  static String get domain {
     return environment.domain;
   }
 
@@ -22,9 +22,12 @@ class ApiConfig {
     return ("Bearer }");
   }
 
+  //Profile
+  String get updateProfile => '';
+  String get getProfile => '';
+  String get logout => '';
   // Category
-  String get getHomeFeaturedCategories =>
-      '$domain/api/getCategoriesListForWeb';
+  String get getHomeFeaturedCategories => '$domain/api/getCategoriesListForWeb';
   String get getBestSellerCategories =>
       '$domain/api/getBestSellerCategoriesForWeb';
   String get getChildCategory => '$domain/api/getChildCategoryForWeb';
@@ -32,20 +35,25 @@ class ApiConfig {
   String get getTrendingProduct => '$domain/api/getTrandingProductForApp';
   String get getProductList => '$domain/api/getProductListForWeb?';
   // String get getProductListCategory => '$domain/api/getProductListForWeb?';
-  String get sendCustomerRegistrationOTP => '$domain/api/sendCustomerRegistrationOTP';
-  String get verifyCustomerRegistrationOtp => '$domain/api/verifyCustomerRegistrationOtp';
+  String get sendCustomerRegistrationOTP =>
+      '$domain/api/sendCustomerRegistrationOTP';
+  String get verifyCustomerRegistrationOtp =>
+      '$domain/api/verifyCustomerRegistrationOtp';
   String get customerLogin => '$domain/api/customerLogin';
   String get getProductDetail => '$domain/api/getProductDetailForWeb';
   String get addProductWishlist => '$domain/api/addProductWishlist';
   String get removeProductWishlist => '$domain/api/removeProductWishlist';
   String get getCustomerWishlist => '$domain/api/getCustomerWishlist';
-  String get customerForgetPasswordSendOtp => '$domain/api/customerForgetPasswordSendOtp';
-  String get customerForgetPasswordVerifyOtp => '$domain/api/customerForgetPasswordVerifyOtp';
+  String get customerForgetPasswordSendOtp =>
+      '$domain/api/customerForgetPasswordSendOtp';
+  String get customerForgetPasswordVerifyOtp =>
+      '$domain/api/customerForgetPasswordVerifyOtp';
   String get customerSetNewPassword => '$domain/api/customerSetNewPassword';
   String get editCustomerDetail => '$domain/api/editCustomerDetail';
   String get editCustomerAddress => '$domain/api/editCustomerAddress';
   String get getCustomerAddress => '$domain/api/getLoginCustomer';
-  String get getHomePromotionalBanner => '$domain/api/getHomePromotionalBannerForWeb';
+  String get getHomePromotionalBanner =>
+      '$domain/api/getHomePromotionalBannerForWeb';
   String get logOut => '$domain/api/logout';
   String get getShippingAddress => '$domain/api/getShippingAddress';
   String get getCartUpdate => '$domain/api/getCartUpdate';
@@ -58,7 +66,8 @@ class ApiConfig {
   String get getCustomerOrders => '$domain/api/getCustomerOrders';
   String get orderTracking => '$domain/api/order-tracking';
   String get getNotification => '$domain/api/getUnreadNotification';
-  String get getAppliedCouponForCustomer => '$domain/api/getAppliedCouponForCustomer';
+  String get getAppliedCouponForCustomer =>
+      '$domain/api/getAppliedCouponForCustomer';
   String get dashboard => '$domain/api/dashboard';
   String get addReview => '$domain/api/addReview';
   String get wallet => '$domain/api/wallet';
@@ -79,7 +88,6 @@ class ApiConfig {
   String get homeProductSearch => '$domain/api/homeProductSearch';
   String get updateFcmToken => '$domain/api/updateFcmToken';
   String get markReadNotification => '$domain/api/';
-
 }
 
 String commonDeviceID = "";
@@ -87,11 +95,7 @@ String currency = "AED";
 final translator = GoogleTranslator();
 Locale? commonLocal;
 
-enum APIEnvironment {
-  development,
-  staging,
-  production,
-}
+enum APIEnvironment { development, staging, production }
 
 extension APIEnvironmentDomain on APIEnvironment {
   String get domain {
@@ -99,7 +103,7 @@ extension APIEnvironmentDomain on APIEnvironment {
       case APIEnvironment.development:
         // return "http://65.21.185.41:555/api";
         return "https://herafeen.com";
-        // return "https://devherafeen.hiredev.org";
+      // return "https://devherafeen.hiredev.org";
       case APIEnvironment.staging:
         return "";
       case APIEnvironment.production:

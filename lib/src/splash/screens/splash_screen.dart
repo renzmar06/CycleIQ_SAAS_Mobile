@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:cycleiq_saas_mobile/core/di/injection_container_common.dart';
+import 'package:cycleiq_saas_mobile/core/services/navigation.dart';
 import 'package:cycleiq_saas_mobile/core/shared_pref/constants.dart';
 import 'package:cycleiq_saas_mobile/core/shared_pref/preferences_utils.dart';
 import 'package:cycleiq_saas_mobile/core/utils/constants/image_strings.dart';
@@ -44,9 +45,9 @@ class _SplashScreenState extends State<SplashScreen> {
       final pref = serviceLocator<PreferencesUtil>();
       final prefShowHome = pref.getBoolPreferencesData(Constants.prefShowHome);
       if (prefShowHome) {
-        context.go('/bottom-navbar', extra: {'initialIndex': 0});
+        AppNav.to(context, '/entryPoint', extra: {'initialIndex': 0});
       } else {
-        context.go('/onboarding');
+        AppNav.to(context, '/onboarding');
       }
     });
   }
@@ -60,12 +61,12 @@ class _SplashScreenState extends State<SplashScreen> {
         body: Container(
           width: double.infinity,
           height: double.infinity,
-          decoration: const BoxDecoration(
-            image: DecorationImage(
-              image: AssetImage(ImageStrings.splashBgImage),
-              fit: BoxFit.cover,
-            ),
-          ),
+          // decoration: const BoxDecoration(
+          //   image: DecorationImage(
+          //     image: AssetImage(ImageStrings.splashBgImage),
+          //     fit: BoxFit.cover,
+          //   ),
+          // ),
           child: Center(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,

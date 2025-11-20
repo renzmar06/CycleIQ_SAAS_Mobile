@@ -1,3 +1,4 @@
+import 'package:cycleiq_saas_mobile/core/services/navigation.dart';
 import 'package:cycleiq_saas_mobile/core/utils/constants/image_strings.dart';
 import 'package:cycleiq_saas_mobile/core/utils/widgets/common_textfield.dart';
 import 'package:cycleiq_saas_mobile/core/utils/widgets/link_button.dart';
@@ -97,7 +98,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       text: "Login",
                       loading: state.status == LoginStatus.loading,
                       onPressed: () {
-                        context.go('/entryPoint');
+                        AppNav.to(context, '/entryPoint');
                         // context.read<LoginBloc>().add(
                         //   LoginSubmitted(
                         //     email: emailCtrl.text.trim(),
@@ -118,7 +119,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     const Text("Don't have an account?"),
                     AppLinkButton(
                       text: "Create Account",
-                      onTap: () => context.go('/register'),
+                      onTap: () => AppNav.to(context, '/register'),
                     ),
                   ],
                 ),
