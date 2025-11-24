@@ -146,6 +146,8 @@
 
 import 'package:cycleiq_saas_mobile/src/appointment/screen/appointment_screen.dart';
 import 'package:cycleiq_saas_mobile/src/home/screen/home.dart';
+import 'package:cycleiq_saas_mobile/src/notification/screen/notification_screen.dart';
+import 'package:cycleiq_saas_mobile/src/security/screen/security.dart';
 import 'package:cycleiq_saas_mobile/src/transaction/screen/transaction.dart';
 import 'package:flutter/material.dart';
 import 'package:cycleiq_saas_mobile/src/entryPoint/menu.dart';
@@ -167,8 +169,8 @@ class _EntryPointState extends State<EntryPoint>
     HomeScreen(),
     TransactionScreen(),
     AppointmentScreen(),
-    HomeScreen(),
-    HomeScreen(),
+    NotificationScreen(),
+    SecurityScreen(),
   ];
 
   @override

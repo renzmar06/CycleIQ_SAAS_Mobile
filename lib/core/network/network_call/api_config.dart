@@ -26,6 +26,19 @@ class ApiConfig {
   String get updateProfile => '';
   String get getProfile => '';
   String get logout => '';
+
+  //notification
+  String get getNotifications => '';
+  String get deleteNotification => '';
+  String get markAllNotificationsRead => '';
+
+  //security
+  String get rewards => '';
+  String get walletBalance => '';
+  String get payoutHistory => '';
+  String get donation => '';
+  String get uploadProof => '';
+
   // Category
   String get getHomeFeaturedCategories => '$domain/api/getCategoriesListForWeb';
   String get getBestSellerCategories =>

@@ -1,6 +1,7 @@
 import 'package:cycleiq_saas_mobile/core/di/injection_container_common.dart';
 import 'package:cycleiq_saas_mobile/src/home/bloc/home_bloc.dart';
 import 'package:cycleiq_saas_mobile/src/login/bloc/login_bloc.dart';
+import 'package:cycleiq_saas_mobile/src/notification/bloc/notification_bloc.dart';
 import 'package:cycleiq_saas_mobile/src/profile/bloc/profile_bloc.dart';
 import 'package:cycleiq_saas_mobile/src/register/bloc/register_bloc.dart';
 
@@ -19,5 +20,8 @@ Future<void> initPresentationDI() async {
   );
   serviceLocator.registerFactory<ProfileBloc>(
     () => ProfileBloc(profileRepository: serviceLocator()),
+  );
+  serviceLocator.registerFactory<NotificationBloc>(
+    () => NotificationBloc(profileRepository: serviceLocator()),
   );
 }

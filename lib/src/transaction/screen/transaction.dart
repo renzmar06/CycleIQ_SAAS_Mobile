@@ -50,6 +50,7 @@ class _TransactionScreenState extends State<TransactionScreen> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
+        leading: Container(),
         elevation: 0,
         backgroundColor: Colors.white,
         centerTitle: true,

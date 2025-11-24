@@ -21,6 +21,7 @@ class _AppointmentScreenState extends State<AppointmentScreen> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
+        leading: Container(),
         elevation: 0,
         centerTitle: true,
         backgroundColor: Colors.white,
