@@ -3,15 +3,17 @@ class Constants {
   static String accessToken = 'accessToken';
 
   static String preCustomerIdKey = 'customerId';
-  static String prefReferralCode = 'referral_code';
-  static String prefRoleIdKey = 'roleId';
-  static String prefFirstNameKey = 'firstName';
-  static String prefLastNameKey = 'lastName';
+  // static String prefReferralCode = 'referral_code';
+  // static String prefRoleIdKey = 'roleId';
+  // static String prefFirstNameKey = 'firstName';
+  // static String prefLastNameKey = 'lastName';
   static String fcmToken = 'fcmToken';
   static String prefNameKey = 'name';
   static String prefPhoneNumberKey = 'phoneNumber';
   static String prefPasswordKey = 'password';
   static String prefEmailAddressKey = 'email';
+  static String prefAddressKey = 'address';
+  static String prefIsAdmin = 'isAdmin';
 
   // CHANGE: Add constants for "Remember Me" feature
   static const String prefRememberMe = 'remember_me';
@@ -29,7 +31,6 @@ class Constants {
       "https://apps.apple.com/app/id6739810874?action=write-review";
   static String androidReviewURL =
       "https://play.google.com/store/apps/details?id=ae.payten.wallet.app&reviewId=0";
-
 }
 
 String returnSelectedLang(String currentLang) {

@@ -8,7 +8,6 @@ import 'package:cycleiq_saas_mobile/src/login/bloc/login_event.dart';
 import 'package:cycleiq_saas_mobile/src/login/bloc/login_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:go_router/go_router.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -26,7 +25,7 @@ class _LoginScreenState extends State<LoginScreen> {
     return BlocListener<LoginBloc, LoginState>(
       listener: (context, state) {
         if (state.status == LoginStatus.success) {
-          Navigator.pushReplacementNamed(context, "/home");
+          AppNav.to(context, '/entryPoint');
         } else if (state.status == LoginStatus.failure) {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(content: Text(state.errorModel?.message ?? "Error")),
@@ -98,13 +97,12 @@ class _LoginScreenState extends State<LoginScreen> {
                       text: "Login",
                       loading: state.status == LoginStatus.loading,
                       onPressed: () {
-                        AppNav.to(context, '/entryPoint');
-                        // context.read<LoginBloc>().add(
-                        //   LoginSubmitted(
-                        //     email: emailCtrl.text.trim(),
-                        //     password: passwordCtrl.text.trim(),
-                        //   ),
-                        // );
+                        context.read<LoginBloc>().add(
+                          LoginSubmitted(
+                            email: emailCtrl.text.trim(),
+                            password: passwordCtrl.text.trim(),
+                          ),
+                        );
                       },
                     );
                   },

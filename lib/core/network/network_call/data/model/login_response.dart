@@ -1,31 +1,57 @@
 class LoginResponse {
-  final bool error;
+  final bool success;
   final String message;
-  final LoginData? data;
+  final String token;
+  final UserData? user;
 
-  LoginResponse({required this.error, required this.message, this.data});
+  LoginResponse({
+    required this.success,
+    required this.message,
+    required this.token,
+    this.user,
+  });
 
   factory LoginResponse.fromJson(Map<String, dynamic> json) {
     return LoginResponse(
-      error: json['error'] ?? false,
+      success: json['success'] ?? false,
       message: json['message'] ?? "",
-      data: json['data'] != null ? LoginData.fromJson(json['data']) : null,
+      token: json['token'] ?? "",
+      user: json['user'] != null ? UserData.fromJson(json['user']) : null,
     );
   }
 }
 
-class LoginData {
-  final String token;
-  final int userId;
+class UserData {
+  final String id;
   final String name;
+  final String email;
+  final bool isAdmin;
+  final int phone;
+  final String address;
+  final String createdAt;
+  final String updatedAt;
 
-  LoginData({required this.token, required this.userId, required this.name});
+  UserData({
+    required this.id,
+    required this.name,
+    required this.email,
+    required this.isAdmin,
+    required this.phone,
+    required this.address,
+    required this.createdAt,
+    required this.updatedAt,
+  });
 
-  factory LoginData.fromJson(Map<String, dynamic> json) {
-    return LoginData(
-      token: json['token'] ?? "",
-      userId: json['user_id'] ?? 0,
+  factory UserData.fromJson(Map<String, dynamic> json) {
+    return UserData(
+      id: json['_id'] ?? "",
       name: json['name'] ?? "",
+      email: json['email'] ?? "",
+      isAdmin: json['isAdmin'] ?? false,
+      phone: json['phone'] ?? 0,
+      address: json['address'] ?? "",
+      createdAt: json['createdAt'] ?? "",
+      updatedAt: json['updatedAt'] ?? "",
     );
   }
 }

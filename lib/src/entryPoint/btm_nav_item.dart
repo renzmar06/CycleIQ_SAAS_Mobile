@@ -63,17 +63,35 @@ class BtmNavItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: onTap,
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          AnimatedBar(isActive: isSelected),
-          const SizedBox(height: 6),
-          Icon(
-            icon,
-            size: 30,
-            color: isSelected ? Colors.white : Colors.white54,
-          ),
-        ],
+      child: AnimatedContainer(
+        duration: const Duration(milliseconds: 250),
+        padding: isSelected ? const EdgeInsets.all(8) : const EdgeInsets.all(0),
+        decoration: BoxDecoration(
+          color: isSelected
+              ? Color.fromARGB(255, 33, 193, 142)
+              : Colors.transparent,
+          borderRadius: BorderRadius.circular(12),
+        ),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            AnimatedBar(isActive: isSelected),
+            const SizedBox(height: 6),
+            AnimatedScale(
+              scale: isSelected ? 1.15 : 1.0,
+              duration: const Duration(milliseconds: 200),
+              child: AnimatedOpacity(
+                duration: const Duration(milliseconds: 200),
+                opacity: isSelected ? 1 : 0.5,
+                child: Icon(
+                  icon,
+                  size: 28,
+                  color: isSelected ? Colors.white : Colors.black,
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

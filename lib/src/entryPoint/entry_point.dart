@@ -176,16 +176,19 @@ class _EntryPointState extends State<EntryPoint>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: backgroundColor2,
+      backgroundColor: Colors.white,
       body: IndexedStack(index: _selectedIndex, children: _pages),
-
       bottomNavigationBar: SafeArea(
         child: Container(
-          padding: const EdgeInsets.all(12),
-          margin: const EdgeInsets.symmetric(horizontal: 24, vertical: 8),
+          padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
           decoration: BoxDecoration(
-            color: backgroundColor2.withOpacity(0.8),
-            borderRadius: BorderRadius.circular(24),
+            border: Border.all(color: Colors.black26),
+            color: Colors.white,
+            borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(16),
+              topRight: Radius.circular(16),
+            ),
+
             boxShadow: [
               BoxShadow(
                 color: backgroundColor2.withOpacity(0.4),

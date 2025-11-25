@@ -1,3 +1,5 @@
+import 'package:cycleiq_saas_mobile/core/di/injection_container_common.dart';
+import 'package:cycleiq_saas_mobile/core/shared_pref/preferences_utils.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../core/bloc/base_bloc.dart';
 import '../../../core/error/model/error_response_model.dart';
@@ -7,6 +9,7 @@ import 'login_state.dart';
 
 class LoginBloc extends BaseBloc<LoginEvent, LoginState> {
   final AuthRepository authRepository;
+  final pref = serviceLocator<PreferencesUtil>();
 
   LoginBloc({required this.authRepository}) : super(const LoginState()) {
     on<LoginSubmitted>(_onLoginSubmitted);
@@ -21,12 +24,13 @@ class LoginBloc extends BaseBloc<LoginEvent, LoginState> {
     try {
       final response = await authRepository.login(event.email, event.password);
 
-      response.fold(
-        (failure) {
+      await response.fold(
+        (failure) async {
           ErrorModel error = handleException(failure);
           emit(state.copyWith(status: LoginStatus.failure, errorModel: error));
         },
-        (data) {
+        (data) async {
+          await pref.saveLoginData(data);
           emit(state.copyWith(status: LoginStatus.success));
         },
       );

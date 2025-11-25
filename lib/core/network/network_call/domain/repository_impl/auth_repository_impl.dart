@@ -27,7 +27,7 @@ class AuthRepositoryImpl extends AuthRepository {
     if (await networkInfo.checkIsConnected()) {
       try {
         final response = await remoteDataSource.login(email, password);
-        if (response['error'] == true) {
+        if (response['success'] == false) {
           return Left(
             GeneralException(message: response['message'], code: '1001'),
           );
@@ -58,8 +58,13 @@ class AuthRepositoryImpl extends AuthRepository {
   ) async {
     if (await networkInfo.checkIsConnected()) {
       try {
-        final response = await remoteDataSource.register(email, password);
-        if (response['error'] == true) {
+        final response = await remoteDataSource.register(
+          email,
+          password,
+          phone,
+          name,
+        );
+        if (response['success'] == false) {
           return Left(
             GeneralException(message: response['message'], code: '1001'),
           );

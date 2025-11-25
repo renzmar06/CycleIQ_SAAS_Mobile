@@ -1,9 +1,8 @@
-import 'package:cycleiq_saas_mobile/src/home/widget/categories_grid.dart';
-import 'package:cycleiq_saas_mobile/src/home/widget/eco_stats.dart';
+import 'package:cycleiq_saas_mobile/src/home/widget/active_bonuses.dart';
+import 'package:cycleiq_saas_mobile/src/home/widget/daily_streak.dart';
 import 'package:cycleiq_saas_mobile/src/home/widget/header.dart';
-import 'package:cycleiq_saas_mobile/src/home/widget/ongoing_pickup_card.dart';
 import 'package:cycleiq_saas_mobile/src/home/widget/quick_actions.dart';
-import 'package:cycleiq_saas_mobile/src/home/widget/search_bar.dart';
+import 'package:cycleiq_saas_mobile/src/home/widget/wallet_summary.dart';
 import 'package:flutter/material.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -11,26 +10,27 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // scale values similar to your previous code, but simplified
+    final size = MediaQuery.of(context).size;
+    final scale = (size.width / 400).clamp(0.9, 1.3);
+
     return Scaffold(
       backgroundColor: Colors.white,
       body: SafeArea(
         child: SingleChildScrollView(
-          padding: const EdgeInsets.all(20),
+          padding: EdgeInsets.all(20 * scale),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: const [
               HomeHeader(),
-              SizedBox(height: 25),
-              HomeSearchBar(),
-              SizedBox(height: 30),
-              QuickActionsSection(),
-              SizedBox(height: 35),
-              CategoriesGrid(),
-              SizedBox(height: 35),
-              OngoingPickupCard(),
-              SizedBox(height: 30),
-              EcoStats(),
               SizedBox(height: 20),
+              WalletSummary(),
+              SizedBox(height: 20),
+              QuickActionsGrid(),
+              SizedBox(height: 20),
+              DailyStreak(),
+              SizedBox(height: 20),
+              ActiveBonuses(),
             ],
           ),
         ),

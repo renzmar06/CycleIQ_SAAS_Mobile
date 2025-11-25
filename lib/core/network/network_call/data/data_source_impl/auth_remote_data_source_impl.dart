@@ -11,21 +11,31 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
   AuthRemoteDataSourceImpl({required this.networkClient});
 
   @override
-  Future<LoginResponse> login(String email, String password) async {
+  Future<dynamic> login(String email, String password) async {
     final response = await networkClient.invoke(
-      ApiConfig().getPopularProduct,
+      ApiConfig().login,
       RequestType.post,
-      requestBody: jsonEncode({"id": 'all', "customer_id": ''}),
+      requestBody: jsonEncode({"email": email, "password": password}),
     );
     return response.data;
   }
 
   @override
-  Future<LoginResponse> register(String email, String password) async {
+  Future<dynamic> register(
+    String email,
+    String password,
+    String phoneNumber,
+    String name,
+  ) async {
     final response = await networkClient.invoke(
-      ApiConfig().getPopularProduct,
+      ApiConfig().register,
       RequestType.post,
-      requestBody: jsonEncode({"id": 'all', "customer_id": ''}),
+      requestBody: jsonEncode({
+        "fullName": name,
+        "email": email,
+        "password": password,
+        "phone": phoneNumber,
+      }),
     );
     return response.data;
   }

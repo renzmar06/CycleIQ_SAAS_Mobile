@@ -24,7 +24,7 @@ class NotificationRepositoryImpl implements NotificationRepository {
       try {
         final response = await remoteDataSource.getNotifications();
 
-        if (response['error'] == true) {
+        if (response['success'] == false) {
           return Left(
             GeneralException(message: response['message'], code: "1001"),
           );

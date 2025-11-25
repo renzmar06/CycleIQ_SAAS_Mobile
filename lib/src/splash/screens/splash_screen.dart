@@ -5,7 +5,6 @@ import 'package:cycleiq_saas_mobile/core/shared_pref/constants.dart';
 import 'package:cycleiq_saas_mobile/core/shared_pref/preferences_utils.dart';
 import 'package:cycleiq_saas_mobile/core/utils/constants/image_strings.dart';
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 import 'package:lottie/lottie.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -43,7 +42,9 @@ class _SplashScreenState extends State<SplashScreen> {
 
     Timer(Duration(milliseconds: duration), () {
       final pref = serviceLocator<PreferencesUtil>();
-      final prefShowHome = pref.getBoolPreferencesData(Constants.prefShowHome);
+      final prefShowHome = pref.getBoolPreferencesData(
+        Constants.prefIsLoggedIn,
+      );
       if (prefShowHome) {
         AppNav.to(context, '/entryPoint', extra: {'initialIndex': 0});
       } else {

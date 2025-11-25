@@ -2,10 +2,10 @@
 import 'dart:ui';
 import 'package:translator/translator.dart';
 
-APIEnvironment environment = APIEnvironment.development;
+APIEnvironment environment = APIEnvironment.staging;
 
 class ApiConfig {
-  static APIEnvironment environment = APIEnvironment.development;
+  static APIEnvironment environment = APIEnvironment.staging;
 
   static String get domain {
     return environment.domain;
@@ -21,6 +21,10 @@ class ApiConfig {
     // log("bearerToken====>${user.token}");
     return ("Bearer }");
   }
+
+  //Auth
+  String get login => '$domain/api/login';
+  String get register => '$domain/api/register';
 
   //Profile
   String get updateProfile => '';
@@ -118,7 +122,7 @@ extension APIEnvironmentDomain on APIEnvironment {
         return "https://herafeen.com";
       // return "https://devherafeen.hiredev.org";
       case APIEnvironment.staging:
-        return "";
+        return "https://xcv6x40j-3000.inc1.devtunnels.ms";
       case APIEnvironment.production:
         return "";
     }

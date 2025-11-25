@@ -1,4 +1,5 @@
 import 'package:cycleiq_saas_mobile/core/di/injection_container_common.dart';
+import 'package:cycleiq_saas_mobile/core/shared_pref/preferences_utils.dart';
 import 'package:cycleiq_saas_mobile/src/profile/bloc/profile_bloc.dart';
 import 'package:cycleiq_saas_mobile/src/profile/bloc/profile_event.dart';
 import 'package:cycleiq_saas_mobile/src/profile/bloc/profile_state.dart';
@@ -11,6 +12,7 @@ import 'package:cycleiq_saas_mobile/src/profile/widget/profile_section_title.dar
 import 'package:cycleiq_saas_mobile/src/profile/widget/settings_tile.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
@@ -119,7 +121,15 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
                   /// LOGOUT
                   LogoutButton(
-                    onLogout: () => bloc.add(const LogoutProfileEvent()),
+                    onLogout: () {
+                      final pref = serviceLocator<PreferencesUtil>();
+                      pref.clearPreferencesData();
+                      // Navigate back to SplashScreen
+                      if (context.mounted) {
+                        context.go('/');
+                      }
+                    },
+                    // onLogout: () => bloc.add(const LogoutProfileEvent()),
                   ),
 
                   const SizedBox(height: 20),
