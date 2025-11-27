@@ -126,7 +126,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       pref.clearPreferencesData();
                       // Navigate back to SplashScreen
                       if (context.mounted) {
-                        context.go('/');
+                        context.pushReplacement('/');
                       }
                     },
                     // onLogout: () => bloc.add(const LogoutProfileEvent()),

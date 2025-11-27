@@ -20,13 +20,10 @@ class AuthRepositoryImpl extends AuthRepository {
   });
 
   @override
-  Future<Either<Exception, LoginResponse>> login(
-    String email,
-    String password,
-  ) async {
+  Future<Either<Exception, LoginResponse>> login(String body) async {
     if (await networkInfo.checkIsConnected()) {
       try {
-        final response = await remoteDataSource.login(email, password);
+        final response = await remoteDataSource.login(body);
         if (response['success'] == false) {
           return Left(
             GeneralException(message: response['message'], code: '1001'),
@@ -50,20 +47,10 @@ class AuthRepositoryImpl extends AuthRepository {
   }
 
   @override
-  Future<Either<Exception, RegisterResponse>> register(
-    String name,
-    String email,
-    String phone,
-    String password,
-  ) async {
+  Future<Either<Exception, RegisterResponse>> register(String body) async {
     if (await networkInfo.checkIsConnected()) {
       try {
-        final response = await remoteDataSource.register(
-          email,
-          password,
-          phone,
-          name,
-        );
+        final response = await remoteDataSource.register(body);
         if (response['success'] == false) {
           return Left(
             GeneralException(message: response['message'], code: '1001'),

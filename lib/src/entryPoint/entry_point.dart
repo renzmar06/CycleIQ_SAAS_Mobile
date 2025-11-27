@@ -145,6 +145,7 @@
 // }
 
 import 'package:cycleiq_saas_mobile/src/appointment/screen/appointment_screen.dart';
+import 'package:cycleiq_saas_mobile/src/community/screen/community_page.dart';
 import 'package:cycleiq_saas_mobile/src/home/screen/home.dart';
 import 'package:cycleiq_saas_mobile/src/notification/screen/notification_screen.dart';
 import 'package:cycleiq_saas_mobile/src/security/screen/security.dart';
@@ -167,7 +168,7 @@ class _EntryPointState extends State<EntryPoint>
 
   final List<Widget> _pages = [
     HomeScreen(),
-    TransactionScreen(),
+    CommunityPage(),
     AppointmentScreen(),
     NotificationScreen(),
     SecurityScreen(),

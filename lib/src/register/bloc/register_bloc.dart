@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../core/bloc/base_bloc.dart';
 import '../../../core/error/model/error_response_model.dart';
@@ -30,12 +32,14 @@ class RegisterBloc extends BaseBloc<RegisterEvent, RegisterState> {
     emit(state.copyWith(status: RegisterStatus.loading));
 
     try {
-      final response = await authRepository.register(
-        event.name,
-        event.email,
-        event.phone,
-        event.password,
-      );
+      final String body = jsonEncode({
+        "fullName": event.name,
+        "email": event.email,
+        "password": event.password,
+        "phone": event.phone,
+        "customerType": "individual",
+      });
+      final response = await authRepository.register(body);
 
       response.fold(
         (failure) {

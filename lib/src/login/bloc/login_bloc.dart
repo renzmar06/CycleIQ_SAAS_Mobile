@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:cycleiq_saas_mobile/core/di/injection_container_common.dart';
 import 'package:cycleiq_saas_mobile/core/shared_pref/preferences_utils.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -22,7 +24,11 @@ class LoginBloc extends BaseBloc<LoginEvent, LoginState> {
     emit(state.copyWith(status: LoginStatus.loading));
 
     try {
-      final response = await authRepository.login(event.email, event.password);
+      String body = jsonEncode({
+        "email": event.email,
+        "password": event.password,
+      });
+      final response = await authRepository.login(body);
 
       await response.fold(
         (failure) async {

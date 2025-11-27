@@ -1,8 +1,5 @@
-import 'dart:convert';
-
 import 'package:cycleiq_saas_mobile/core/network/network_call/api_config.dart';
 import 'package:cycleiq_saas_mobile/core/network/network_call/data/data_source/auth_remote_data_source.dart';
-import 'package:cycleiq_saas_mobile/core/network/network_call/data/model/login_response.dart';
 import 'package:cycleiq_saas_mobile/core/network/network_call/network_client.dart';
 
 class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
@@ -11,31 +8,21 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
   AuthRemoteDataSourceImpl({required this.networkClient});
 
   @override
-  Future<dynamic> login(String email, String password) async {
+  Future<dynamic> login(String body) async {
     final response = await networkClient.invoke(
       ApiConfig().login,
       RequestType.post,
-      requestBody: jsonEncode({"email": email, "password": password}),
+      requestBody: body,
     );
     return response.data;
   }
 
   @override
-  Future<dynamic> register(
-    String email,
-    String password,
-    String phoneNumber,
-    String name,
-  ) async {
+  Future<dynamic> register(String body) async {
     final response = await networkClient.invoke(
       ApiConfig().register,
       RequestType.post,
-      requestBody: jsonEncode({
-        "fullName": name,
-        "email": email,
-        "password": password,
-        "phone": phoneNumber,
-      }),
+      requestBody: body,
     );
     return response.data;
   }
