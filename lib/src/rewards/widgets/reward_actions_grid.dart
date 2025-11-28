@@ -1,36 +1,20 @@
+import 'package:cycleiq_saas_mobile/core/services/navigation.dart';
 import 'package:flutter/material.dart';
-import '../../../../core/services/navigation.dart';
 
-class QuickActionsGrid extends StatelessWidget {
-  const QuickActionsGrid({super.key});
+class RewardActionsGrid extends StatelessWidget {
+  const RewardActionsGrid({super.key});
 
   @override
   Widget build(BuildContext context) {
     final items = [
-      _QuickActionItem(
-        "Bag Drop",
-        Icons.shopping_bag_rounded,
-        "/pickup-request",
+      _GridItem(
+        "Impact Certificates",
+        Icons.workspace_premium_outlined,
+        "/impact-certificate",
       ),
-      _QuickActionItem(
-        "Recycle In-Person",
-        Icons.recycling_rounded,
-        "/centers",
-      ),
-      _QuickActionItem(
-        "Tickets",
-        Icons.confirmation_number_outlined,
-        "/tickets",
-      ),
-      _QuickActionItem("Utility Bill", Icons.receipt_long, "/utility"),
-      _QuickActionItem("Rewards", Icons.card_giftcard, "/rewards"),
-      _QuickActionItem("Locations", Icons.location_on_outlined, "/centers"),
-      _QuickActionItem("Materials", Icons.layers, "/category/Materials"),
-      _QuickActionItem(
-        "Challenges",
-        Icons.emoji_events_outlined,
-        "/challenges",
-      ),
+      _GridItem("Badges", Icons.military_tech_outlined, "/utility"),
+      _GridItem("Points History", Icons.history, "/utility"),
+      _GridItem("Store", Icons.storefront_outlined, "/utility"),
     ];
 
     return Column(
@@ -40,7 +24,6 @@ class QuickActionsGrid extends StatelessWidget {
           'Quick actions',
           style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
         ),
-        const SizedBox(height: 16),
 
         GridView.builder(
           shrinkWrap: true,
@@ -53,7 +36,7 @@ class QuickActionsGrid extends StatelessWidget {
             childAspectRatio: 1.05, // square-ish cards
           ),
           itemBuilder: (_, index) {
-            return _ActionTile(item: items[index]);
+            return _RewardTile(item: items[index]);
           },
         ),
       ],
@@ -61,18 +44,19 @@ class QuickActionsGrid extends StatelessWidget {
   }
 }
 
-class _QuickActionItem {
+class _GridItem {
   final String title;
   final IconData icon;
+  // final Color color;
   final String route;
 
-  _QuickActionItem(this.title, this.icon, this.route);
+  _GridItem(this.title, this.icon, this.route);
 }
 
-class _ActionTile extends StatelessWidget {
-  final _QuickActionItem item;
+class _RewardTile extends StatelessWidget {
+  final _GridItem item;
 
-  const _ActionTile({required this.item});
+  const _RewardTile({required this.item});
 
   @override
   Widget build(BuildContext context) {

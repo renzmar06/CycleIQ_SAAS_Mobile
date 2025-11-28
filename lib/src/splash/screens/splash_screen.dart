@@ -46,9 +46,9 @@ class _SplashScreenState extends State<SplashScreen> {
         Constants.prefIsLoggedIn,
       );
       if (prefShowHome) {
-        AppNav.to(context, '/entryPoint', extra: {'initialIndex': 0});
+        AppNav.push(context, '/entryPoint', extra: {'initialIndex': 0});
       } else {
-        AppNav.to(context, '/onboarding');
+        AppNav.push(context, '/onboarding');
       }
     });
   }

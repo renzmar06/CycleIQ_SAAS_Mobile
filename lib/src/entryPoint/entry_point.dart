@@ -147,9 +147,8 @@
 import 'package:cycleiq_saas_mobile/src/appointment/screen/appointment_screen.dart';
 import 'package:cycleiq_saas_mobile/src/community/screen/community_page.dart';
 import 'package:cycleiq_saas_mobile/src/home/screen/home.dart';
-import 'package:cycleiq_saas_mobile/src/notification/screen/notification_screen.dart';
-import 'package:cycleiq_saas_mobile/src/security/screen/security.dart';
-import 'package:cycleiq_saas_mobile/src/transaction/screen/transaction.dart';
+import 'package:cycleiq_saas_mobile/src/rewards/screen/rewards_screen.dart';
+import 'package:cycleiq_saas_mobile/src/settings/screen/settings_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:cycleiq_saas_mobile/src/entryPoint/menu.dart';
 import 'package:cycleiq_saas_mobile/src/entryPoint/btm_nav_item.dart';
@@ -168,10 +167,10 @@ class _EntryPointState extends State<EntryPoint>
 
   final List<Widget> _pages = [
     HomeScreen(),
-    CommunityPage(),
     AppointmentScreen(),
-    NotificationScreen(),
-    SecurityScreen(),
+    CommunityPage(),
+    RewardsScreen(),
+    SettingsScreen(),
   ];
 
   @override

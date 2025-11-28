@@ -3,6 +3,7 @@ import 'package:cycleiq_saas_mobile/core/network/network_call/domain/repository/
 import 'package:cycleiq_saas_mobile/src/category/screen/category_screen.dart';
 import 'package:cycleiq_saas_mobile/src/entryPoint/entry_point.dart';
 import 'package:cycleiq_saas_mobile/src/home/screen/home.dart';
+import 'package:cycleiq_saas_mobile/src/impact_certification/screen/impact_certificates_screen.dart';
 import 'package:cycleiq_saas_mobile/src/login/bloc/login_bloc.dart';
 import 'package:cycleiq_saas_mobile/src/login/screen/loginScreen.dart';
 import 'package:cycleiq_saas_mobile/src/onboarding/screen/onBoarding.dart';
@@ -90,6 +91,10 @@ final GoRouter router = GoRouter(
     GoRoute(
       path: "/pickup-status",
       builder: (_, _) => const PickupStatusScreen(),
+    ),
+    GoRoute(
+      path: "/impact-certificate",
+      builder: (_, _) => const ImpactCertificatesScreen(),
     ),
     GoRoute(path: "/profile", builder: (_, _) => const ProfileScreen()),
     // GoRoute(

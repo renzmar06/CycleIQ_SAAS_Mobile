@@ -24,7 +24,7 @@ class HomeHeader extends StatelessWidget {
             children: [
               /// LEFT SIDE (User info)
               GestureDetector(
-                onTap: () => AppNav.to(context, "/profile"),
+                onTap: () => AppNav.push(context, "/profile"),
                 child: Row(
                   children: [
                     // User Icon
@@ -88,11 +88,11 @@ class HomeHeader extends StatelessWidget {
               Row(
                 children: [
                   _headerIconButton(Icons.qr_code, () {
-                    AppNav.to(context, "/my-qr");
+                    AppNav.push(context, "/my-qr");
                   }),
                   const SizedBox(width: 10),
                   _headerIconButton(Icons.notifications_none, () {
-                    AppNav.to(context, "/notifications");
+                    AppNav.push(context, "/notifications");
                   }),
                 ],
               ),

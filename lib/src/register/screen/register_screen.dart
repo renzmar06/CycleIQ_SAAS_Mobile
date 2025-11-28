@@ -142,7 +142,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     const Text("Already have an account? "),
                     AppLinkButton(
                       text: "Login",
-                      onTap: () => AppNav.to(context, "/loginScreen"),
+                      onTap: () => AppNav.push(context, "/loginScreen"),
                     ),
                   ],
                 ),

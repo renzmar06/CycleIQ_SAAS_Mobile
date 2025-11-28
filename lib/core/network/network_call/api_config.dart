@@ -122,7 +122,7 @@ extension APIEnvironmentDomain on APIEnvironment {
         return "https://herafeen.com";
       // return "https://devherafeen.hiredev.org";
       case APIEnvironment.staging:
-        return "https://xcv6x40j-3000.inc1.devtunnels.ms";
+        return "https://jq97d781-3000.inc1.devtunnels.ms";
       case APIEnvironment.production:
         return "";
     }

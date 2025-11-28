@@ -68,8 +68,8 @@ class Menu {
 
 List<Menu> bottomNavItems = [
   Menu(title: "Home", icon: Icons.home_rounded),
-  Menu(title: "Transaction", icon: Icons.receipt_long_rounded),
-  Menu(title: "Appointment", icon: Icons.event_available_rounded),
-  Menu(title: "Notification", icon: Icons.notifications_rounded),
-  Menu(title: "Security", icon: Icons.shield_rounded),
+  Menu(title: "Appointment", icon: Icons.currency_exchange_sharp),
+  Menu(title: "Communuty", icon: Icons.people_alt_sharp),
+  Menu(title: "Gift", icon: Icons.wallet_giftcard_outlined),
+  Menu(title: "Security", icon: Icons.person),
 ];

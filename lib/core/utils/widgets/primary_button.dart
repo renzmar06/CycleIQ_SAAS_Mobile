@@ -29,24 +29,32 @@ class AppButton extends StatelessWidget {
     return SizedBox(
       width: fullWidth ? double.infinity : null,
       height: height,
-      child: ElevatedButton(
-        style: ElevatedButton.styleFrom(
-          backgroundColor: backgroundColor,
-          shape: RoundedRectangleBorder(
+      child: GestureDetector(
+        onTap: loading ? null : onPressed,
+        child: Container(
+          decoration: BoxDecoration(
+            color: backgroundColor,
             borderRadius: BorderRadius.circular(radius),
           ),
-        ),
-        onPressed: loading ? null : onPressed,
-        child: loading
-            ? const CircularProgressIndicator(color: Colors.white)
-            : Text(
-                text,
-                style: TextStyle(
-                  color: textColor,
-                  fontSize: fontSize,
-                  fontWeight: FontWeight.bold,
+          alignment: Alignment.center,
+          child: loading
+              ? const SizedBox(
+                  width: 24,
+                  height: 24,
+                  child: CircularProgressIndicator(
+                    strokeWidth: 2.5,
+                    color: Colors.white,
+                  ),
+                )
+              : Text(
+                  text,
+                  style: TextStyle(
+                    color: textColor,
+                    fontSize: fontSize,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
-              ),
+        ),
       ),
     );
   }

@@ -25,7 +25,7 @@ class _LoginScreenState extends State<LoginScreen> {
     return BlocListener<LoginBloc, LoginState>(
       listener: (context, state) {
         if (state.status == LoginStatus.success) {
-          AppNav.to(context, '/entryPoint');
+          AppNav.push(context, '/entryPoint');
         } else if (state.status == LoginStatus.failure) {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(content: Text(state.errorModel?.message ?? "Error")),
@@ -97,12 +97,13 @@ class _LoginScreenState extends State<LoginScreen> {
                       text: "Login",
                       loading: state.status == LoginStatus.loading,
                       onPressed: () {
-                        context.read<LoginBloc>().add(
-                          LoginSubmitted(
-                            email: emailCtrl.text.trim(),
-                            password: passwordCtrl.text.trim(),
-                          ),
-                        );
+                        // context.read<LoginBloc>().add(
+                        //   LoginSubmitted(
+                        //     email: emailCtrl.text.trim(),
+                        //     password: passwordCtrl.text.trim(),
+                        //   ),
+                        // );
+                        AppNav.push(context, '/entryPoint');
                       },
                     );
                   },
@@ -117,7 +118,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     const Text("Don't have an account?"),
                     AppLinkButton(
                       text: "Create Account",
-                      onTap: () => AppNav.to(context, '/register'),
+                      onTap: () => AppNav.push(context, '/register'),
                     ),
                   ],
                 ),

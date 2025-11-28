@@ -35,7 +35,7 @@ class CategoriesGrid extends StatelessWidget {
 
   Widget _category(BuildContext context, String title, IconData icon) {
     return GestureDetector(
-      onTap: () => AppNav.to(context, "/category/$title"),
+      onTap: () => AppNav.push(context, "/category/$title"),
       child: Column(
         children: [
           Container(

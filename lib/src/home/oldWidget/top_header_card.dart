@@ -80,7 +80,7 @@ class HomeHeader extends StatelessWidget {
 
             // Profile avatar
             GestureDetector(
-              onTap: () => AppNav.to(context, "/profile"),
+              onTap: () => AppNav.push(context, "/profile"),
               child: CircleAvatar(
                 radius: 20,
                 backgroundColor: Colors.grey.shade200,

@@ -7,7 +7,7 @@ class OngoingPickupCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => AppNav.to(context, "/pickup-status"),
+      onTap: () => AppNav.push(context, "/pickup-status"),
       child: Container(
         padding: const EdgeInsets.all(18),
         decoration: BoxDecoration(

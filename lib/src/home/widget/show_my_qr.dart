@@ -7,7 +7,7 @@ class ShowMyQRCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => AppNav.to(context, "/my-qr"),
+      onTap: () => AppNav.push(context, "/my-qr"),
       child: Container(
         padding: const EdgeInsets.symmetric(vertical: 20),
         width: double.infinity,

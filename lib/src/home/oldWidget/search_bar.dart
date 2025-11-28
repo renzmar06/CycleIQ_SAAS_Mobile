@@ -7,7 +7,7 @@ class HomeSearchBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => AppNav.to(context, "/search"),
+      onTap: () => AppNav.push(context, "/search"),
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 16),
         height: 50,
