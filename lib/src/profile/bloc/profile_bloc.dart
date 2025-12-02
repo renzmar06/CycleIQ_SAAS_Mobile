@@ -1,63 +1,80 @@
-import 'package:cycleiq_saas_mobile/core/network/network_call/domain/repository/profile_repository.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:cycleiq_saas_mobile/core/network/network_call/domain/repository/profile_repository.dart';
+
 import 'profile_event.dart';
 import 'profile_state.dart';
 
 class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
   final ProfileRepository profileRepository;
 
-  ProfileBloc({required this.profileRepository}) : super(ProfileState()) {
-    on<LoadProfileEvent>(_load);
-    on<UpdateProfileEvent>(_update);
-    on<LogoutProfileEvent>(_logout);
+  ProfileBloc({required this.profileRepository}) : super(const ProfileState()) {
+    on<FetchProfileEvent>(_onFetchProfile);
+    on<UpdateProfileEvent>(_onUpdateProfile);
+    on<UploadProfileImageEvent>(_onUploadImage);
   }
 
-  Future<void> _load(LoadProfileEvent event, Emitter<ProfileState> emit) async {
+  Future<void> _onFetchProfile(
+    FetchProfileEvent event,
+    Emitter<ProfileState> emit,
+  ) async {
     emit(state.copyWith(status: ProfileStatus.loading));
 
-    final result = await profileRepository.getProfile();
-
-    result.fold(
-      (e) => emit(
-        state.copyWith(status: ProfileStatus.failure, error: e.toString()),
-      ),
-      (user) => emit(state.copyWith(status: ProfileStatus.success, user: user)),
+    final res = await profileRepository.fetchProfile();
+    res.fold(
+      (err) {
+        emit(
+          state.copyWith(
+            status: ProfileStatus.failure,
+            errorMessage: err.toString(),
+          ),
+        );
+      },
+      (data) {
+        emit(state.copyWith(status: ProfileStatus.success, user: data.user));
+      },
     );
   }
 
-  Future<void> _update(
+  Future<void> _onUpdateProfile(
     UpdateProfileEvent event,
     Emitter<ProfileState> emit,
   ) async {
     emit(state.copyWith(status: ProfileStatus.updating));
 
-    final result = await profileRepository.updateProfile(
-      name: event.name,
-      phone: event.phone,
-      avatarPath: event.avatarPathOrUrl,
-    );
+    final body = event.data;
+    final res = await profileRepository.updateProfile(body);
 
-    result.fold(
-      (e) => emit(
-        state.copyWith(status: ProfileStatus.failure, error: e.toString()),
+    res.fold(
+      (err) => emit(
+        state.copyWith(
+          status: ProfileStatus.failure,
+          errorMessage: err.toString(),
+        ),
       ),
-      (user) => emit(state.copyWith(status: ProfileStatus.success, user: user)),
+      (data) => emit(
+        state.copyWith(status: ProfileStatus.updateSuccess, user: data.user),
+      ),
     );
   }
 
-  Future<void> _logout(
-    LogoutProfileEvent event,
+  Future<void> _onUploadImage(
+    UploadProfileImageEvent event,
     Emitter<ProfileState> emit,
   ) async {
-    emit(state.copyWith(status: ProfileStatus.loggingOut));
+    emit(state.copyWith(status: ProfileStatus.imageUploading));
 
-    final result = await profileRepository.logout();
+    final res = await profileRepository.uploadImage(event.file);
 
-    result.fold(
-      (e) => emit(
-        state.copyWith(status: ProfileStatus.failure, error: e.toString()),
+    res.fold(
+      (err) => emit(
+        state.copyWith(
+          status: ProfileStatus.failure,
+          errorMessage: err.toString(),
+        ),
       ),
-      (_) => emit(ProfileState(status: ProfileStatus.initial)),
+      (_) {
+        add(FetchProfileEvent()); // refresh profile
+      },
     );
   }
 }

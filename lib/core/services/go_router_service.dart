@@ -96,7 +96,7 @@ final GoRouter router = GoRouter(
       path: "/impact-certificate",
       builder: (_, _) => const ImpactCertificatesScreen(),
     ),
-    GoRoute(path: "/profile", builder: (_, _) => const ProfileScreen()),
+    GoRoute(path: "/profile", builder: (_, _) => const EditProfileScreen()),
     // GoRoute(
     //   path: '/bottom-navbar',
     //   builder: (BuildContext context, GoRouterState state) {

@@ -1,23 +1,40 @@
-abstract class ProfileEvent {
-  const ProfileEvent();
+import 'package:cycleiq_saas_mobile/src/profile/model/user.dart';
+import 'package:equatable/equatable.dart';
+
+enum ProfileStatus {
+  initial,
+  loading,
+  success,
+  fetchSuccess,
+  updateSuccess,
+  failure,
+  updating,
+  imageUploading,
 }
 
-class LoadProfileEvent extends ProfileEvent {
-  const LoadProfileEvent();
-}
+class ProfileState extends Equatable {
+  final ProfileStatus status;
+  final ProfileUser? user;
+  final String? errorMessage;
 
-class UpdateProfileEvent extends ProfileEvent {
-  final String name;
-  final String phone;
-  final String? avatarPathOrUrl;
-
-  const UpdateProfileEvent({
-    required this.name,
-    required this.phone,
-    this.avatarPathOrUrl,
+  const ProfileState({
+    this.status = ProfileStatus.initial,
+    this.user,
+    this.errorMessage,
   });
-}
 
-class LogoutProfileEvent extends ProfileEvent {
-  const LogoutProfileEvent();
+  ProfileState copyWith({
+    ProfileStatus? status,
+    ProfileUser? user,
+    String? errorMessage,
+  }) {
+    return ProfileState(
+      status: status ?? this.status,
+      user: user ?? this.user,
+      errorMessage: errorMessage,
+    );
+  }
+
+  @override
+  List<Object?> get props => [status, user, errorMessage];
 }

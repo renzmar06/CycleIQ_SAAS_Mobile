@@ -1,25 +1,63 @@
-class UserModel {
-  final int id;
+class ProfileResponse {
+  final bool success;
+  final ProfileUser? user;
+
+  ProfileResponse({required this.success, this.user});
+
+  factory ProfileResponse.fromJson(Map<String, dynamic> json) {
+    return ProfileResponse(
+      success: json['success'] ?? false,
+      user: json['user'] != null ? ProfileUser.fromJson(json['user']) : null,
+    );
+  }
+}
+
+class ProfileUser {
+  final String id;
   final String name;
   final String email;
+  final String role;
+  final String customerType;
   final String phone;
-  final String? avatarUrl;
+  final String address;
+  final String city;
+  final String state;
+  final String zipCode;
+  final String notes;
+  final String idProofImage;
+  final String addressProofImage;
 
-  UserModel({
+  ProfileUser({
     required this.id,
     required this.name,
     required this.email,
+    required this.role,
+    required this.customerType,
     required this.phone,
-    this.avatarUrl,
+    required this.address,
+    required this.city,
+    required this.state,
+    required this.zipCode,
+    required this.notes,
+    required this.idProofImage,
+    required this.addressProofImage,
   });
 
-  factory UserModel.fromJson(Map<String, dynamic> json) {
-    return UserModel(
-      id: json["id"] ?? 0,
-      name: json["name"] ?? "",
-      email: json["email"] ?? "",
-      phone: json["phone"] ?? "",
-      avatarUrl: json["avatar_url"] ?? json["avatar"],
+  factory ProfileUser.fromJson(Map<String, dynamic> json) {
+    return ProfileUser(
+      id: json['id'] ?? "",
+      name: json['name'] ?? "",
+      email: json['email'] ?? "",
+      role: json['role'] ?? "",
+      customerType: json['customerType'] ?? "",
+      phone: json['phone'] ?? "",
+      address: json['address'] ?? "",
+      city: json['city'] ?? "",
+      state: json['state'] ?? "",
+      zipCode: json['zipCode'] ?? "",
+      notes: json['notes'] ?? "",
+      idProofImage: json['idProofImage'] ?? "",
+      addressProofImage: json['addressProofImage'] ?? "",
     );
   }
 }

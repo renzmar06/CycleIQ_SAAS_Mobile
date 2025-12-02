@@ -2,7 +2,6 @@ import 'package:cycleiq_saas_mobile/core/services/navigation.dart';
 import 'package:cycleiq_saas_mobile/src/onboarding/widget/fluid_card.dart';
 import 'package:cycleiq_saas_mobile/src/onboarding/widget/fluid_carousel.dart';
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 
 // NOTE: Agr apko ye onboarding screen use krni hain to ap nechy text ko change kr skty hain
 class Showcase extends StatefulWidget {

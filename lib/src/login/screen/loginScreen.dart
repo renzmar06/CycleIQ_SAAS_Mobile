@@ -97,13 +97,13 @@ class _LoginScreenState extends State<LoginScreen> {
                       text: "Login",
                       loading: state.status == LoginStatus.loading,
                       onPressed: () {
-                        // context.read<LoginBloc>().add(
-                        //   LoginSubmitted(
-                        //     email: emailCtrl.text.trim(),
-                        //     password: passwordCtrl.text.trim(),
-                        //   ),
-                        // );
-                        AppNav.push(context, '/entryPoint');
+                        context.read<LoginBloc>().add(
+                          LoginSubmitted(
+                            email: emailCtrl.text.trim(),
+                            password: passwordCtrl.text.trim(),
+                          ),
+                        );
+                        // AppNav.push(context, '/entryPoint');
                       },
                     );
                   },

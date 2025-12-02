@@ -1,5 +1,7 @@
+import 'package:dio/dio.dart';
+
 abstract class ProfileRemoteDataSource {
-  Future<dynamic> getProfile();
-  Future<dynamic> updateProfile(String name, String phone, String? avatarPath);
-  Future<dynamic> logout();
+  Future<dynamic> fetchProfile();
+  Future<dynamic> updateProfile(Map<String, dynamic> body);
+  Future<dynamic> uploadImage(FormData formData);
 }

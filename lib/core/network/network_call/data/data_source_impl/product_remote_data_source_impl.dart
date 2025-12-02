@@ -26,7 +26,7 @@ class ProductRemoteDataSourceImpl extends ProductRemoteDataSource {
       debugPrint('Exception cashIn throw ServerException');
       throw ServerException(
         dioException: DioException(
-          requestOptions: response.requestOptions,
+          requestOptions: response.data,
           error: response,
           type: DioExceptionType.badResponse,
         ),
@@ -51,7 +51,7 @@ class ProductRemoteDataSourceImpl extends ProductRemoteDataSource {
       debugPrint('Exception cashIn throw ServerException');
       throw ServerException(
         dioException: DioException(
-          requestOptions: response.requestOptions,
+          requestOptions: response.data,
           error: response,
           type: DioExceptionType.badResponse,
         ),

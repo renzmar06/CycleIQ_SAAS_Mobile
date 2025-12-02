@@ -7,6 +7,18 @@ class AppNav {
     context.push(route, extra: extra);
   }
 
+  static void pop(BuildContext context) {
+    context.pop();
+  }
+
+  static void delaypop(BuildContext context) {
+    Future.delayed(const Duration(seconds: 2), () {
+      if (context.mounted && context.canPop()) {
+        context.pop();
+      }
+    });
+  }
+
   /// Navigate without keeping previous stack
   static void go(BuildContext context, String route, {Object? extra}) {
     context.go(route, extra: extra);
