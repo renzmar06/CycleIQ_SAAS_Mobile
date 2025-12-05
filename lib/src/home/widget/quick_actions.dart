@@ -7,11 +7,7 @@ class QuickActionsGrid extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final items = [
-      _QuickActionItem(
-        "Bag Drop",
-        Icons.shopping_bag_rounded,
-        "/pickup-request",
-      ),
+      _QuickActionItem("Bag Drop", Icons.shopping_bag_rounded, "/bagdrop"),
       _QuickActionItem(
         "Recycle In-Person",
         Icons.recycling_rounded,

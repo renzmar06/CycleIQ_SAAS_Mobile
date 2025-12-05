@@ -88,7 +88,7 @@ class HomeHeader extends StatelessWidget {
               Row(
                 children: [
                   _headerIconButton(Icons.qr_code, () {
-                    AppNav.push(context, "/my-qr");
+                    AppNav.push(context, "/qr-screen");
                   }),
                   const SizedBox(width: 10),
                   _headerIconButton(Icons.notifications_none, () {

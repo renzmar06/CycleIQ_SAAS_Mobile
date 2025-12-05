@@ -1,18 +1,31 @@
 import 'package:cycleiq_saas_mobile/core/di/injection_container_common.dart';
 import 'package:cycleiq_saas_mobile/core/network/network_call/domain/repository/auth_repository.dart';
+import 'package:cycleiq_saas_mobile/core/network/network_call/domain/repository/bag_details_repository.dart';
+import 'package:cycleiq_saas_mobile/core/network/network_call/domain/repository/dropoff_repository.dart';
+import 'package:cycleiq_saas_mobile/src/bag_details/bloc/bag_details_bloc.dart';
+import 'package:cycleiq_saas_mobile/src/bag_details/screen/bag_details_screen.dart';
+import 'package:cycleiq_saas_mobile/src/bag_drop/screen/bag_drop_session_screen.dart';
+import 'package:cycleiq_saas_mobile/src/bag_drop_limits/screen/bag_drop_limits_screen.dart';
 import 'package:cycleiq_saas_mobile/src/category/screen/category_screen.dart';
+import 'package:cycleiq_saas_mobile/src/dropoff_location/bloc/dropoff_bloc.dart';
+import 'package:cycleiq_saas_mobile/src/dropoff_location/screen/dropoff_locations_screen.dart';
 import 'package:cycleiq_saas_mobile/src/entryPoint/entry_point.dart';
+import 'package:cycleiq_saas_mobile/src/expected_bag_count/bloc/expected_bag_count_bloc.dart';
+import 'package:cycleiq_saas_mobile/src/expected_bag_count/screen/expected_bag_count_screen.dart';
 import 'package:cycleiq_saas_mobile/src/home/screen/home.dart';
 import 'package:cycleiq_saas_mobile/src/impact_certification/screen/impact_certificates_screen.dart';
+import 'package:cycleiq_saas_mobile/src/legal_certification/bloc/legal_cert_bloc.dart';
+import 'package:cycleiq_saas_mobile/src/legal_certification/screen/legal_certification_screen.dart';
 import 'package:cycleiq_saas_mobile/src/login/bloc/login_bloc.dart';
 import 'package:cycleiq_saas_mobile/src/login/screen/loginScreen.dart';
 import 'package:cycleiq_saas_mobile/src/onboarding/screen/onBoarding.dart';
-import 'package:cycleiq_saas_mobile/src/pick_up_request/screen/pickup_request_screen.dart';
 import 'package:cycleiq_saas_mobile/src/pickup_status/screen/pickup_status_screen.dart';
 import 'package:cycleiq_saas_mobile/src/profile/screen/profile.dart';
+import 'package:cycleiq_saas_mobile/src/qr/screen/my_universal_qr_screen.dart';
 import 'package:cycleiq_saas_mobile/src/recycling_centers/screen/recycling_centers_screen.dart';
 import 'package:cycleiq_saas_mobile/src/register/bloc/register_bloc.dart';
 import 'package:cycleiq_saas_mobile/src/register/screen/register_screen.dart';
+import 'package:cycleiq_saas_mobile/src/register_bags/screen/register_bags_screen.dart';
 import 'package:cycleiq_saas_mobile/src/splash/screens/splash_screen.dart';
 import 'package:cycleiq_saas_mobile/src/track_pick_up/screen/track_pickup_screen.dart';
 import 'package:flutter/material.dart';
@@ -66,10 +79,7 @@ final GoRouter router = GoRouter(
         return const HomeScreen();
       },
     ),
-    GoRoute(
-      path: "/pickup-request",
-      builder: (_, _) => const PickupRequestScreen(),
-    ),
+    GoRoute(path: "/bagdrop", builder: (_, _) => const BagDropSessionScreen()),
     GoRoute(
       path: "/pickup-track",
       builder: (_, _) => const TrackPickupScreen(),
@@ -92,6 +102,55 @@ final GoRouter router = GoRouter(
       path: "/pickup-status",
       builder: (_, _) => const PickupStatusScreen(),
     ),
+    GoRoute(path: "/qr-screen", builder: (_, _) => const MyUniversalQRScreen()),
+    GoRoute(
+      path: "/bag-drop-limit",
+      builder: (_, _) => const BagDropLimitsScreen(),
+    ),
+    GoRoute(
+      path: "/register-bag",
+      builder: (_, _) => const RegisterBagsScreen(),
+    ),
+    GoRoute(
+      path: "/bag-count",
+      builder: (context, state) {
+        return BlocProvider(
+          create: (_) => ExpectedBagCountBloc(),
+          child: const ExpectedBagCountScreen(),
+        );
+      },
+    ),
+    GoRoute(
+      path: "/legal-certification",
+      builder: (context, state) {
+        return BlocProvider(
+          create: (_) => LegalCertBloc(),
+          child: const LegalCertificationScreen(),
+        );
+      },
+    ),
+    GoRoute(
+      path: "/drop-off-location",
+      builder: (context, state) {
+        return BlocProvider(
+          create: (_) =>
+              DropOffBloc(repository: serviceLocator<DropOffRepository>()),
+          child: const DropOffLocationsScreen(),
+        );
+      },
+    ),
+    GoRoute(
+      path: '/bag-details/:bagQrId',
+      builder: (context, state) {
+        return BlocProvider(
+          create: (_) => BagDetailsBloc(
+            repository: serviceLocator<BagDetailsRepository>(),
+          ),
+          child: BagDetailsScreen(),
+        );
+      },
+    ),
+
     GoRoute(
       path: "/impact-certificate",
       builder: (_, _) => const ImpactCertificatesScreen(),

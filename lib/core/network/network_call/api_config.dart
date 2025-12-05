@@ -2,10 +2,10 @@
 import 'dart:ui';
 import 'package:translator/translator.dart';
 
-APIEnvironment environment = APIEnvironment.production;
+APIEnvironment environment = APIEnvironment.development;
 
 class ApiConfig {
-  static APIEnvironment environment = APIEnvironment.production;
+  static APIEnvironment environment = APIEnvironment.development;
 
   static String get domain {
     return environment.domain;
@@ -33,6 +33,9 @@ class ApiConfig {
 
   String get logout => '';
 
+  //Qr
+  String get getQR => '';
+
   //notification
   String get getNotifications => '';
   String get deleteNotification => '';
@@ -44,6 +47,11 @@ class ApiConfig {
   String get payoutHistory => '';
   String get donation => '';
   String get uploadProof => '';
+
+  // bag-details
+  String get submitBagDetails => '/api/bags';
+  String get uploadVideoBase64 => '';
+  String get uploadVideo => '';
 
   // Category
   String get getHomeFeaturedCategories => '$domain/api/getCategoriesListForWeb';
@@ -124,7 +132,7 @@ extension APIEnvironmentDomain on APIEnvironment {
         return "https://herafeen.com";
       // return "https://devherafeen.hiredev.org";
       case APIEnvironment.staging:
-        return "https://xcv6x40j-3000.inc1.devtunnels.ms";
+        return "https://jq97d781-3000.inc1.devtunnels.ms";
       case APIEnvironment.production:
         return "http://ec2-3-142-235-10.us-east-2.compute.amazonaws.com";
     }

@@ -1,4 +1,7 @@
 import 'package:cycleiq_saas_mobile/core/di/injection_container_common.dart';
+import 'package:cycleiq_saas_mobile/src/bag_details/bloc/bag_details_bloc.dart';
+import 'package:cycleiq_saas_mobile/src/dropoff_location/bloc/dropoff_bloc.dart';
+import 'package:cycleiq_saas_mobile/src/expected_bag_count/bloc/expected_bag_count_bloc.dart';
 import 'package:cycleiq_saas_mobile/src/home/bloc/home_bloc.dart';
 import 'package:cycleiq_saas_mobile/src/login/bloc/login_bloc.dart';
 import 'package:cycleiq_saas_mobile/src/notification/bloc/notification_bloc.dart';
@@ -23,5 +26,14 @@ Future<void> initPresentationDI() async {
   );
   serviceLocator.registerFactory<NotificationBloc>(
     () => NotificationBloc(profileRepository: serviceLocator()),
+  );
+  serviceLocator.registerFactory<ExpectedBagCountBloc>(
+    () => ExpectedBagCountBloc(),
+  );
+  serviceLocator.registerFactory<DropOffBloc>(
+    () => DropOffBloc(repository: serviceLocator()),
+  );
+  serviceLocator.registerFactory<BagDetailsBloc>(
+    () => BagDetailsBloc(repository: serviceLocator()),
   );
 }
