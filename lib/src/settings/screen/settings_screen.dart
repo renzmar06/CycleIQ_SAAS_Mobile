@@ -30,7 +30,7 @@ class SettingsScreen extends StatelessWidget {
                   SettingsItem(
                     icon: Icons.person_outline,
                     title: "Edit Profile",
-                    onTap: () => AppNav.push(context, "/edit-profile"),
+                    onTap: () => AppNav.push(context, "/profile"),
                   ),
                   SettingsItem(
                     icon: Icons.group_add_outlined,

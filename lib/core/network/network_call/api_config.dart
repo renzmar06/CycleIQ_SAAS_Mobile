@@ -2,10 +2,10 @@
 import 'dart:ui';
 import 'package:translator/translator.dart';
 
-APIEnvironment environment = APIEnvironment.development;
+APIEnvironment environment = APIEnvironment.production;
 
 class ApiConfig {
-  static APIEnvironment environment = APIEnvironment.development;
+  static APIEnvironment environment = APIEnvironment.production;
 
   static String get domain {
     return environment.domain;
@@ -32,6 +32,9 @@ class ApiConfig {
   String uploadImage = "/api/upload";
 
   String get logout => '';
+
+  // tickets
+  String get getTickets => '/api/tickets';
 
   //Qr
   String get getQR => '';

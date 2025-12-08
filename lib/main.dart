@@ -8,9 +8,11 @@ import 'package:cycleiq_saas_mobile/core/utils/constants/colors.dart';
 import 'package:cycleiq_saas_mobile/core/utils/notifcations/localNotification.dart';
 import 'package:cycleiq_saas_mobile/core/utils/size_config.dart';
 import 'package:cycleiq_saas_mobile/core/utils/theme/theme.dart';
+import 'package:cycleiq_saas_mobile/src/tickets/bloc/tickets_bloc.dart';
 // import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:overlay_support/overlay_support.dart';
 import 'package:permission_handler/permission_handler.dart';
@@ -57,17 +59,17 @@ Future<void> main() async {
 
   runApp(
     OverlaySupport.global(
-      // child: MultiBlocProvider(
-      // providers: [
-      //   BlocProvider(
-      //     create: (_) => LoginBloc(authRepository: serviceLocator()),
-      //   ),
-      //   BlocProvider(
-      //     create: (_) => RegisterBloc(authRepository: serviceLocator()),
-      //   ),
-      // ],
-      child: const MyApp(),
-      // ),
+      child: MultiBlocProvider(
+        providers: [
+          BlocProvider(
+            create: (_) => TicketsBloc(repository: serviceLocator()),
+          ),
+          // BlocProvider(
+          //   create: (_) => RegisterBloc(authRepository: serviceLocator()),
+          // ),
+        ],
+        child: const MyApp(),
+      ),
     ),
   );
 }

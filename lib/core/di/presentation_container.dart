@@ -7,6 +7,7 @@ import 'package:cycleiq_saas_mobile/src/login/bloc/login_bloc.dart';
 import 'package:cycleiq_saas_mobile/src/notification/bloc/notification_bloc.dart';
 import 'package:cycleiq_saas_mobile/src/profile/bloc/profile_bloc.dart';
 import 'package:cycleiq_saas_mobile/src/register/bloc/register_bloc.dart';
+import 'package:cycleiq_saas_mobile/src/tickets/bloc/tickets_bloc.dart';
 
 Future<void> initPresentationDI() async {
   // serviceLocator.registerFactory<ProductCubit>(
@@ -35,5 +36,8 @@ Future<void> initPresentationDI() async {
   );
   serviceLocator.registerFactory<BagDetailsBloc>(
     () => BagDetailsBloc(repository: serviceLocator()),
+  );
+  serviceLocator.registerFactory<TicketsBloc>(
+    () => TicketsBloc(repository: serviceLocator()),
   );
 }

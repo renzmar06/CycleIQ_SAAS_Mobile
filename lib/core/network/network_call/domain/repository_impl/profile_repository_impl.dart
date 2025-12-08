@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:cycleiq_saas_mobile/core/error/exception.dart';
 import 'package:cycleiq_saas_mobile/core/network/network_call/data/data_source/profile_remote_data_source.dart';
 import 'package:cycleiq_saas_mobile/core/network/network_call/network_info.dart';
@@ -24,6 +26,7 @@ class ProfileRepositoryImpl extends ProfileRepository {
     if (await networkInfo.checkIsConnected()) {
       try {
         final response = await remoteDataSource.fetchProfile();
+        log("jbjfhsbhfbshb$response");
 
         if (response["success"] == false) {
           return Left(
