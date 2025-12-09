@@ -2,6 +2,8 @@ import 'package:cycleiq_saas_mobile/core/di/injection_container_common.dart';
 import 'package:cycleiq_saas_mobile/core/network/network_call/domain/repository/auth_repository.dart';
 import 'package:cycleiq_saas_mobile/core/network/network_call/domain/repository/bag_details_repository.dart';
 import 'package:cycleiq_saas_mobile/core/network/network_call/domain/repository/dropoff_repository.dart';
+import 'package:cycleiq_saas_mobile/core/network/network_call/domain/repository/ticket_repository.dart';
+import 'package:cycleiq_saas_mobile/core/network/network_call/domain/repository/tickets_repository.dart';
 import 'package:cycleiq_saas_mobile/src/bag_details/bloc/bag_details_bloc.dart';
 import 'package:cycleiq_saas_mobile/src/bag_details/screen/bag_details_screen.dart';
 import 'package:cycleiq_saas_mobile/src/bag_drop/screen/bag_drop_session_screen.dart';
@@ -27,6 +29,10 @@ import 'package:cycleiq_saas_mobile/src/register/bloc/register_bloc.dart';
 import 'package:cycleiq_saas_mobile/src/register/screen/register_screen.dart';
 import 'package:cycleiq_saas_mobile/src/register_bags/screen/register_bags_screen.dart';
 import 'package:cycleiq_saas_mobile/src/splash/screens/splash_screen.dart';
+import 'package:cycleiq_saas_mobile/src/tickets/bloc/tickets_bloc.dart';
+import 'package:cycleiq_saas_mobile/src/tickets/model/ticket_model.dart';
+import 'package:cycleiq_saas_mobile/src/tickets_details/bloc/ticket_bloc.dart';
+import 'package:cycleiq_saas_mobile/src/tickets_details/screen/ticket_details_screen.dart';
 import 'package:cycleiq_saas_mobile/src/track_pick_up/screen/track_pickup_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -147,6 +153,20 @@ final GoRouter router = GoRouter(
             repository: serviceLocator<BagDetailsRepository>(),
           ),
           child: BagDetailsScreen(),
+        );
+      },
+    ),
+
+    GoRoute(
+      path: '/ticket-details',
+      builder: (context, state) {
+        final ticket = state.extra as TicketModel; // ✅ receiving full model
+
+        return BlocProvider(
+          create: (_) => TicketBloc(
+            repository: serviceLocator<TicketRepository>(),
+          ), // ✅ preload ticket
+          child: TicketDetailsScreen(ticket: ticket),
         );
       },
     ),

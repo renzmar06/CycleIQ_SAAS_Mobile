@@ -1,9 +1,27 @@
+import 'package:cycleiq_saas_mobile/core/di/injection_container_common.dart';
+import 'package:cycleiq_saas_mobile/core/shared_pref/constants.dart';
+import 'package:cycleiq_saas_mobile/core/shared_pref/preferences_utils.dart';
 import 'package:cycleiq_saas_mobile/src/home/widget/show_my_qr.dart';
 import 'package:flutter/material.dart';
 import '../../../../core/services/navigation.dart';
 
-class HomeHeader extends StatelessWidget {
+class HomeHeader extends StatefulWidget {
   const HomeHeader({super.key});
+
+  @override
+  State<HomeHeader> createState() => _HomeHeaderState();
+}
+
+class _HomeHeaderState extends State<HomeHeader> {
+  final pref = serviceLocator<PreferencesUtil>();
+  String? userId;
+
+  @override
+  void initState() {
+    userId = pref.getPreferencesData(Constants.preCustomerIdKey);
+    // TODO: implement initState
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -54,7 +72,7 @@ class HomeHeader extends StatelessWidget {
                     const SizedBox(width: 12),
 
                     // Texts
-                    const Column(
+                    Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
@@ -67,11 +85,19 @@ class HomeHeader extends StatelessWidget {
                         ),
                         Row(
                           children: [
-                            Text(
-                              "ID: Not assigned",
-                              style: TextStyle(
-                                color: Colors.white70,
-                                fontSize: 13,
+                            SizedBox(
+                              width: 100,
+                              child: Text(
+                                overflow: TextOverflow.ellipsis,
+                                maxLines: 1,
+                                softWrap: true,
+                                userId != null || userId!.isNotEmpty
+                                    ? "ID: $userId"
+                                    : "ID: Not assigned",
+                                style: TextStyle(
+                                  color: Colors.white70,
+                                  fontSize: 13,
+                                ),
                               ),
                             ),
                             SizedBox(width: 4),

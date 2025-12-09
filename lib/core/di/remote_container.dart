@@ -6,6 +6,7 @@ import 'package:cycleiq_saas_mobile/core/network/network_call/data/data_source/d
 import 'package:cycleiq_saas_mobile/core/network/network_call/data/data_source/notification_remote_data_source.dart';
 import 'package:cycleiq_saas_mobile/core/network/network_call/data/data_source/product_remote_data_source.dart';
 import 'package:cycleiq_saas_mobile/core/network/network_call/data/data_source/profile_remote_data_source.dart';
+import 'package:cycleiq_saas_mobile/core/network/network_call/data/data_source/ticket_data_source.dart';
 import 'package:cycleiq_saas_mobile/core/network/network_call/data/data_source/tickets_remote_data_source.dart';
 import 'package:cycleiq_saas_mobile/core/network/network_call/data/data_source_impl/auth_remote_data_source_impl.dart';
 import 'package:cycleiq_saas_mobile/core/network/network_call/data/data_source_impl/bag_details_remote_data_source_impl.dart';
@@ -14,6 +15,7 @@ import 'package:cycleiq_saas_mobile/core/network/network_call/data/data_source_i
 import 'package:cycleiq_saas_mobile/core/network/network_call/data/data_source_impl/notification_remote_data_source_impl.dart';
 import 'package:cycleiq_saas_mobile/core/network/network_call/data/data_source_impl/product_remote_data_source_impl.dart';
 import 'package:cycleiq_saas_mobile/core/network/network_call/data/data_source_impl/profile_remote_data_source_impl.dart';
+import 'package:cycleiq_saas_mobile/core/network/network_call/data/data_source_impl/ticket_remote_data_source.dart';
 import 'package:cycleiq_saas_mobile/core/network/network_call/data/data_source_impl/tickets_remote_data_source_impl.dart';
 
 Future<void> initRemoteDI() async {
@@ -40,5 +42,8 @@ Future<void> initRemoteDI() async {
   );
   serviceLocator.registerLazySingleton<TicketsRemoteDataSource>(
     () => TicketsRemoteDataSourceImpl(networkClient: serviceLocator()),
+  );
+  serviceLocator.registerLazySingleton<TicketDataSource>(
+    () => TicketRemoteDataSourceImpl(networkClient: serviceLocator()),
   );
 }

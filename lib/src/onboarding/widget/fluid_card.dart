@@ -26,13 +26,16 @@ class FluidCard extends StatefulWidget {
 
 class _FluidCardState extends State<FluidCard> {
   late Ticker _ticker;
+  bool _navigated = false; // ✅ prevents double / weird taps
 
   @override
   void initState() {
-    _ticker = Ticker((d) {
-      setState(() {});
-    })..start();
     super.initState();
+    _ticker = Ticker((d) {
+      if (mounted) {
+        setState(() {});
+      }
+    })..start();
   }
 
   @override
@@ -41,16 +44,30 @@ class _FluidCardState extends State<FluidCard> {
     super.dispose();
   }
 
+  void _handleContinueTap() {
+    if (_navigated) return; // ✅ ignore any second tap
+    _navigated = true;
+
+    // ✅ stop animation so it doesn’t fight with navigation
+    _ticker.stop();
+
+    // ✅ run navigation after this frame is done
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      widget.onContinue?.call();
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return LayoutBuilder(
       builder: (_, constraints) {
-        var time = DateTime.now().millisecondsSinceEpoch / 2000;
-        var scaleX = 1.2 + sin(time) * .05;
-        var scaleY = 1.2 + cos(time) * .07;
-        var offsetY = 20 + cos(time) * 20;
+        final time = DateTime.now().millisecondsSinceEpoch / 2000;
+        final scaleX = 1.2 + sin(time) * .05;
+        final scaleY = 1.2 + cos(time) * .07;
+        final offsetY = 20 + cos(time) * 20;
         final width = constraints.maxWidth;
         final height = constraints.maxHeight;
+
         return Stack(
           alignment: Alignment.center,
           fit: StackFit.expand,
@@ -74,7 +91,7 @@ class _FluidCardState extends State<FluidCard> {
                 padding: const EdgeInsets.only(top: 75.0, bottom: 25.0),
                 child: Column(
                   children: <Widget>[
-                    //Top Image
+                    // Top Image
                     Expanded(
                       flex: 3,
                       child: Padding(
@@ -86,7 +103,7 @@ class _FluidCardState extends State<FluidCard> {
                       ),
                     ),
 
-                    //Slider circles
+                    // Slider circles
                     SizedBox(
                       height: 14,
                       child: Image.asset(
@@ -94,7 +111,7 @@ class _FluidCardState extends State<FluidCard> {
                       ),
                     ),
 
-                    //Bottom content
+                    // Bottom content
                     Expanded(
                       flex: 2,
                       child: Padding(
@@ -140,8 +157,12 @@ class _FluidCardState extends State<FluidCard> {
         ),
 
         if (widget.showContinueButton)
-          GestureDetector(
-            onTap: widget.onContinue,
+          Listener(
+            // ✅ RAW touch listener (bypasses gesture arena)
+            behavior: HitTestBehavior.opaque,
+            onPointerDown: (_) {
+              _handleContinueTap(); // ✅ Will fire on FIRST touch always
+            },
             child: Container(
               margin: const EdgeInsets.only(top: 20),
               padding: const EdgeInsets.all(14),

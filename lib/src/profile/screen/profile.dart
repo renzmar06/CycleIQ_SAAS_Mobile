@@ -1,5 +1,4 @@
 import 'package:cycleiq_saas_mobile/core/services/navigation.dart';
-import 'package:cycleiq_saas_mobile/core/utils/widgets/app_center_popup.dart';
 import 'package:cycleiq_saas_mobile/core/utils/widgets/app_popup.dart';
 import 'package:cycleiq_saas_mobile/core/utils/widgets/primary_button.dart';
 import 'package:cycleiq_saas_mobile/src/profile/widget/ep_header.dart';
@@ -8,7 +7,6 @@ import 'package:cycleiq_saas_mobile/src/profile/widget/ep_profile_photo.dart';
 import 'package:cycleiq_saas_mobile/src/profile/widget/ep_recycling_impact.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:go_router/go_router.dart';
 import '../../../core/di/injection_container_common.dart';
 import '../bloc/profile_bloc.dart';
 import '../bloc/profile_event.dart';

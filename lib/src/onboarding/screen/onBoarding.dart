@@ -13,7 +13,7 @@ class Showcase extends StatefulWidget {
 
 class _ShowcaseState extends State<Showcase> {
   void goToHome() {
-    AppNav.push(context, '/loginScreen'); // Your home route
+    AppNav.go(context, '/loginScreen');
   }
 
   @override

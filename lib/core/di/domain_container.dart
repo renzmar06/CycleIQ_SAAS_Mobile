@@ -6,6 +6,7 @@ import 'package:cycleiq_saas_mobile/core/network/network_call/domain/repository/
 import 'package:cycleiq_saas_mobile/core/network/network_call/domain/repository/notification_repository.dart';
 import 'package:cycleiq_saas_mobile/core/network/network_call/domain/repository/product_repository.dart';
 import 'package:cycleiq_saas_mobile/core/network/network_call/domain/repository/profile_repository.dart';
+import 'package:cycleiq_saas_mobile/core/network/network_call/domain/repository/ticket_repository.dart';
 import 'package:cycleiq_saas_mobile/core/network/network_call/domain/repository/tickets_repository.dart';
 import 'package:cycleiq_saas_mobile/core/network/network_call/domain/repository_impl/auth_repository_impl.dart';
 import 'package:cycleiq_saas_mobile/core/network/network_call/domain/repository_impl/bag_details_repository_impl.dart';
@@ -14,6 +15,7 @@ import 'package:cycleiq_saas_mobile/core/network/network_call/domain/repository_
 import 'package:cycleiq_saas_mobile/core/network/network_call/domain/repository_impl/notification_repository_impl.dart';
 import 'package:cycleiq_saas_mobile/core/network/network_call/domain/repository_impl/product_repository_impl.dart';
 import 'package:cycleiq_saas_mobile/core/network/network_call/domain/repository_impl/profile_repository_impl.dart';
+import 'package:cycleiq_saas_mobile/core/network/network_call/domain/repository_impl/ticket_repository_impl.dart';
 import 'package:cycleiq_saas_mobile/core/network/network_call/domain/repository_impl/tickets_repository_impl.dart';
 
 Future<void> initDomainDI() async {
@@ -75,5 +77,8 @@ Future<void> initDomainDI() async {
   );
   serviceLocator.registerLazySingleton<TicketsRepository>(
     () => TicketsRepositoryImpl(remoteDataSource: serviceLocator()),
+  );
+  serviceLocator.registerLazySingleton<TicketRepository>(
+    () => TicketRepositoryImpl(remoteDataSource: serviceLocator()),
   );
 }

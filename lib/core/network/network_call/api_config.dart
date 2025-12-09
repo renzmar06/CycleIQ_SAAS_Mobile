@@ -2,10 +2,10 @@
 import 'dart:ui';
 import 'package:translator/translator.dart';
 
-APIEnvironment environment = APIEnvironment.production;
+APIEnvironment environment = APIEnvironment.staging;
 
 class ApiConfig {
-  static APIEnvironment environment = APIEnvironment.production;
+  static APIEnvironment environment = APIEnvironment.staging;
 
   static String get domain {
     return environment.domain;
@@ -135,7 +135,7 @@ extension APIEnvironmentDomain on APIEnvironment {
         return "https://herafeen.com";
       // return "https://devherafeen.hiredev.org";
       case APIEnvironment.staging:
-        return "https://jq97d781-3000.inc1.devtunnels.ms";
+        return "https://wcp4spl0-3000.inc1.devtunnels.ms";
       case APIEnvironment.production:
         return "http://ec2-3-142-235-10.us-east-2.compute.amazonaws.com";
     }
