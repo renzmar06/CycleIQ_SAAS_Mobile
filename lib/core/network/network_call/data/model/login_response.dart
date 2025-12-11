@@ -16,7 +16,7 @@ class LoginResponse {
       success: json['success'] ?? false,
       message: json['message'] ?? "",
       token: json['token'] ?? "",
-      user: json['user'] != null ? UserData.fromJson(json['user']) : null,
+      user: json['data'] != null ? UserData.fromJson(json['data']) : null,
     );
   }
 }

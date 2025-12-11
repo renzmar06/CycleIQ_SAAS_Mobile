@@ -22,6 +22,9 @@ class BagDetailsScreen extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Colors.green,
+        elevation: 0,
+
         leading: GestureDetector(
           onTap: () => Navigator.pop(context),
           child: Container(
@@ -33,9 +36,43 @@ class BagDetailsScreen extends StatelessWidget {
             child: const Icon(Icons.arrow_back, color: Colors.white),
           ),
         ),
-        title: Text("Bag Details", style: TextStyle(color: Colors.white)),
-        backgroundColor: Colors.green,
+
+        title: const Text(
+          "Bag Details",
+          style: TextStyle(color: Colors.white, fontWeight: FontWeight.w600),
+        ),
+
+        actions: [
+          GestureDetector(
+            onTap: () {
+              Navigator.pushNamed(context, "/registered-bags");
+            },
+            child: Container(
+              margin: const EdgeInsets.only(right: 12),
+              padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
+              decoration: BoxDecoration(
+                color: Colors.white.withOpacity(0.2),
+                borderRadius: BorderRadius.circular(20),
+              ),
+              child: Row(
+                children: const [
+                  Icon(Icons.list_alt, color: Colors.white, size: 20),
+                  SizedBox(width: 6),
+                  Text(
+                    "Registered Bags",
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 14,
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ],
       ),
+
       body: BlocConsumer<BagDetailsBloc, BagDetailsState>(
         listener: (context, state) {
           if (state.status == BagDetailsStatus.success) {

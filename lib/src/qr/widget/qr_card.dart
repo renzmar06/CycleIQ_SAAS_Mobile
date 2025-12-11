@@ -39,6 +39,7 @@ class QRCard extends StatelessWidget {
           RepaintBoundary(
             key: qrBoundaryKey,
             child: QrImageView(
+              backgroundColor: Colors.white,
               data: userId,
               size: 180,
               version: QrVersions.auto,

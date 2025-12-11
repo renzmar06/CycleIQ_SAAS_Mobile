@@ -1,6 +1,7 @@
 import 'dart:typed_data';
 import 'dart:io';
 import 'dart:ui';
+
 import 'package:cycleiq_saas_mobile/src/qr/widget/qr_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
@@ -58,17 +59,22 @@ class QRActions extends StatelessWidget {
     );
   }
 
+  // ✅ PERFECT QR CAPTURE (NO BLACK BACKGROUND)
   Future<Uint8List> _captureQR() async {
-    RenderRepaintBoundary boundary =
+    await Future.delayed(const Duration(milliseconds: 50)); // let UI render
+
+    final boundary =
         qrBoundaryKey.currentContext!.findRenderObject()
             as RenderRepaintBoundary;
 
     final image = await boundary.toImage(pixelRatio: 4.0);
-    return (await image.toByteData(
-      format: ImageByteFormat.png,
-    ))!.buffer.asUint8List();
+
+    final byteData = await image.toByteData(format: ImageByteFormat.png);
+
+    return byteData!.buffer.asUint8List();
   }
 
+  // ✅ DOWNLOAD
   Future<void> downloadQR() async {
     Uint8List bytes = await _captureQR();
 
@@ -76,9 +82,10 @@ class QRActions extends StatelessWidget {
     final file = File("${dir.path}/my_qr.png");
     await file.writeAsBytes(bytes);
 
-    debugPrint("Saved to: ${file.path}");
+    debugPrint("✅ QR Saved to: ${file.path}");
   }
 
+  // ✅ SHARE
   Future<void> shareQR() async {
     Uint8List bytes = await _captureQR();
 
@@ -86,11 +93,13 @@ class QRActions extends StatelessWidget {
     final file = File("${dir.path}/qr_share.png");
     await file.writeAsBytes(bytes);
 
-    Share.shareXFiles([XFile(file.path)]);
+    await Share.shareXFiles([XFile(file.path)]);
   }
 
+  // ✅ PRINT TO PDF
   Future<void> printQR() async {
     Uint8List bytes = await _captureQR();
+
     await Printing.layoutPdf(
       onLayout: (format) async {
         final pdf = pw.Document();
