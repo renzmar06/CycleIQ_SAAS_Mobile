@@ -1,7 +1,7 @@
 import 'package:cycleiq_saas_mobile/core/services/navigation.dart';
 import 'package:cycleiq_saas_mobile/core/utils/widgets/app_popup.dart';
+import 'package:cycleiq_saas_mobile/core/utils/widgets/app_primary_appbar.dart';
 import 'package:cycleiq_saas_mobile/core/utils/widgets/primary_button.dart';
-import 'package:cycleiq_saas_mobile/src/profile/widget/ep_header.dart';
 import 'package:cycleiq_saas_mobile/src/profile/widget/ep_personal_info_form.dart';
 import 'package:cycleiq_saas_mobile/src/profile/widget/ep_profile_photo.dart';
 import 'package:cycleiq_saas_mobile/src/profile/widget/ep_recycling_impact.dart';
@@ -24,6 +24,7 @@ class EditProfileScreen extends StatelessWidget {
           ProfileBloc(profileRepository: serviceLocator())
             ..add(FetchProfileEvent()),
       child: Scaffold(
+        appBar: AppPrimaryAppBar(title: "Edit Profile"),
         backgroundColor: Colors.grey.shade100,
         body: SafeArea(
           child: BlocListener<ProfileBloc, ProfileState>(
@@ -51,13 +52,16 @@ class EditProfileScreen extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const EPHeader(),
                       const SizedBox(height: 20),
 
                       EPProfilePhoto(imageUrl: user.idProofImage),
                       const SizedBox(height: 30),
 
-                      const EPRecyclingImpact(),
+                      EPRecyclingImpact(
+                        kgCo2Saved: user.kgCo2Saved,
+                        totalBags: user.totalBags,
+                        totalEarned: user.totalEarned,
+                      ),
                       const SizedBox(height: 30),
 
                       EPPersonalInfoForm(user: user, formKey: formKey),

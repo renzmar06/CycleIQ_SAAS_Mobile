@@ -1,19 +1,20 @@
+import 'dart:developer';
+
 import 'package:cycleiq_saas_mobile/core/di/injection_container_common.dart';
 import 'package:cycleiq_saas_mobile/core/network/network_call/domain/repository/auth_repository.dart';
 import 'package:cycleiq_saas_mobile/core/network/network_call/domain/repository/bag_details_repository.dart';
 import 'package:cycleiq_saas_mobile/core/network/network_call/domain/repository/dropoff_repository.dart';
 import 'package:cycleiq_saas_mobile/core/network/network_call/domain/repository/ticket_repository.dart';
-import 'package:cycleiq_saas_mobile/core/network/network_call/domain/repository/tickets_repository.dart';
-import 'package:cycleiq_saas_mobile/src/bag_details/bloc/bag_details_bloc.dart';
+import 'package:cycleiq_saas_mobile/src/add_bag_details/bloc/bag_details_bloc.dart';
+import 'package:cycleiq_saas_mobile/src/add_bag_details/screen/bag_details_screen.dart';
 import 'package:cycleiq_saas_mobile/src/bag_details/screen/bag_details_screen.dart';
 import 'package:cycleiq_saas_mobile/src/bag_drop/screen/bag_drop_session_screen.dart';
 import 'package:cycleiq_saas_mobile/src/bag_drop_limits/screen/bag_drop_limits_screen.dart';
+import 'package:cycleiq_saas_mobile/src/bag_session/screen/bag_list_screen.dart';
 import 'package:cycleiq_saas_mobile/src/category/screen/category_screen.dart';
 import 'package:cycleiq_saas_mobile/src/dropoff_location/bloc/dropoff_bloc.dart';
 import 'package:cycleiq_saas_mobile/src/dropoff_location/screen/dropoff_locations_screen.dart';
 import 'package:cycleiq_saas_mobile/src/entryPoint/entry_point.dart';
-import 'package:cycleiq_saas_mobile/src/expected_bag_count/bloc/expected_bag_count_bloc.dart';
-import 'package:cycleiq_saas_mobile/src/expected_bag_count/screen/expected_bag_count_screen.dart';
 import 'package:cycleiq_saas_mobile/src/home/screen/home.dart';
 import 'package:cycleiq_saas_mobile/src/impact_certification/screen/impact_certificates_screen.dart';
 import 'package:cycleiq_saas_mobile/src/legal_certification/bloc/legal_cert_bloc.dart';
@@ -21,15 +22,17 @@ import 'package:cycleiq_saas_mobile/src/legal_certification/screen/legal_certifi
 import 'package:cycleiq_saas_mobile/src/login/bloc/login_bloc.dart';
 import 'package:cycleiq_saas_mobile/src/login/screen/loginScreen.dart';
 import 'package:cycleiq_saas_mobile/src/onboarding/screen/onBoarding.dart';
+import 'package:cycleiq_saas_mobile/src/operator_checkin/bloc/checkin_bloc.dart';
+import 'package:cycleiq_saas_mobile/src/operator_checkin/screen/operator_checkin_screen.dart';
 import 'package:cycleiq_saas_mobile/src/pickup_status/screen/pickup_status_screen.dart';
 import 'package:cycleiq_saas_mobile/src/profile/screen/profile.dart';
 import 'package:cycleiq_saas_mobile/src/qr/screen/my_universal_qr_screen.dart';
 import 'package:cycleiq_saas_mobile/src/recycling_centers/screen/recycling_centers_screen.dart';
 import 'package:cycleiq_saas_mobile/src/register/bloc/register_bloc.dart';
 import 'package:cycleiq_saas_mobile/src/register/screen/register_screen.dart';
+import 'package:cycleiq_saas_mobile/src/register_bags/bloc/register_bags_bloc.dart';
 import 'package:cycleiq_saas_mobile/src/register_bags/screen/register_bags_screen.dart';
 import 'package:cycleiq_saas_mobile/src/splash/screens/splash_screen.dart';
-import 'package:cycleiq_saas_mobile/src/tickets/bloc/tickets_bloc.dart';
 import 'package:cycleiq_saas_mobile/src/tickets/model/ticket_model.dart';
 import 'package:cycleiq_saas_mobile/src/tickets_details/bloc/ticket_bloc.dart';
 import 'package:cycleiq_saas_mobile/src/tickets_details/screen/ticket_details_screen.dart';
@@ -85,7 +88,15 @@ final GoRouter router = GoRouter(
         return const HomeScreen();
       },
     ),
-    GoRoute(path: "/bagdrop", builder: (_, _) => const BagDropSessionScreen()),
+    GoRoute(
+      path: "/bagdrop",
+      builder: (context, state) {
+        final location = state.extra as String;
+
+        return BagDropSessionScreen(recyclingCenter: location);
+      },
+    ),
+
     GoRoute(
       path: "/pickup-track",
       builder: (_, _) => const TrackPickupScreen(),
@@ -115,23 +126,45 @@ final GoRouter router = GoRouter(
     ),
     GoRoute(
       path: "/register-bag",
-      builder: (_, _) => const RegisterBagsScreen(),
-    ),
-    GoRoute(
-      path: "/bag-count",
       builder: (context, state) {
+        log("hsbhbsd${state.extra}");
+        final data = state.extra as Map<String, dynamic>;
         return BlocProvider(
-          create: (_) => ExpectedBagCountBloc(),
-          child: const ExpectedBagCountScreen(),
+          create: (_) =>
+              RegisterBagsBloc(repository: serviceLocator<DropOffRepository>()),
+          child: RegisterBagsScreen(data: data),
         );
       },
     ),
     GoRoute(
+      path: "/checkInScreen",
+      builder: (context, state) {
+        final data = state.extra as Map<String, dynamic>;
+        return BlocProvider(
+          create: (_) =>
+              CheckInBloc(repository: serviceLocator<DropOffRepository>()),
+          child: OperatorCheckInScreen(data: data),
+        );
+      },
+    ),
+    GoRoute(path: "/home", builder: (context, state) => const HomeScreen()),
+    // NO NEED
+    // GoRoute(
+    //   path: "/bag-count",
+    //   builder: (context, state) {
+    //     return BlocProvider(
+    //       create: (_) => ExpectedBagCountBloc(),
+    //       child: const ExpectedBagCountScreen(),
+    //     );
+    //   },
+    // ),
+    GoRoute(
       path: "/legal-certification",
       builder: (context, state) {
+        final data = state.extra as Map<String, dynamic>;
         return BlocProvider(
           create: (_) => LegalCertBloc(),
-          child: const LegalCertificationScreen(),
+          child: LegalCertificationScreen(data: data),
         );
       },
     ),
@@ -146,13 +179,13 @@ final GoRouter router = GoRouter(
       },
     ),
     GoRoute(
-      path: '/bag-details/:bagQrId',
+      path: '/bag-details',
       builder: (context, state) {
         return BlocProvider(
-          create: (_) => BagDetailsBloc(
+          create: (_) => AddBagDetailsBloc(
             repository: serviceLocator<BagDetailsRepository>(),
           ),
-          child: BagDetailsScreen(),
+          child: AddBagDetailsScreen(),
         );
       },
     ),
@@ -176,6 +209,22 @@ final GoRouter router = GoRouter(
       builder: (_, _) => const ImpactCertificatesScreen(),
     ),
     GoRoute(path: "/profile", builder: (_, _) => const EditProfileScreen()),
+    GoRoute(
+      path: "/my-bags",
+      builder: (_, state) {
+        final userId = state.uri.queryParameters["userId"]!;
+        return BagListScreen(userId: userId);
+      },
+    ),
+
+    GoRoute(
+      path: '/bag-view',
+      builder: (context, state) {
+        final qrId = state.uri.queryParameters["qrId"]!;
+        return BagDetailsViewScreen(qrId: qrId);
+      },
+    ),
+
     // GoRoute(
     //   path: '/bottom-navbar',
     //   builder: (BuildContext context, GoRouterState state) {

@@ -1,14 +1,27 @@
-import 'package:equatable/equatable.dart';
+import 'package:cycleiq_saas_mobile/src/register_bags/model/bag_info_model.dart';
 
-class RegisterBagsState extends Equatable {
-  final List<String> bags;
+enum RegisterBagStatus { initial, loading, success, failure }
 
-  const RegisterBagsState({this.bags = const []});
+class RegisterBagsState {
+  final List<BagInfoModel> registeredBags;
+  final RegisterBagStatus status;
+  final String? message;
 
-  RegisterBagsState copyWith({List<String>? bags}) {
-    return RegisterBagsState(bags: bags ?? this.bags);
+  const RegisterBagsState({
+    this.registeredBags = const [],
+    this.status = RegisterBagStatus.initial,
+    this.message,
+  });
+
+  RegisterBagsState copyWith({
+    List<BagInfoModel>? registeredBags,
+    RegisterBagStatus? status,
+    String? message,
+  }) {
+    return RegisterBagsState(
+      registeredBags: registeredBags ?? this.registeredBags,
+      status: status ?? this.status,
+      message: message,
+    );
   }
-
-  @override
-  List<Object?> get props => [bags];
 }

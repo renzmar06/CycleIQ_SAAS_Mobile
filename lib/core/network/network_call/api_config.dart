@@ -2,10 +2,10 @@
 import 'dart:ui';
 import 'package:translator/translator.dart';
 
-APIEnvironment environment = APIEnvironment.staging;
+APIEnvironment environment = APIEnvironment.production;
 
 class ApiConfig {
-  static APIEnvironment environment = APIEnvironment.staging;
+  static APIEnvironment environment = APIEnvironment.production;
 
   static String get domain {
     return environment.domain;
@@ -22,14 +22,15 @@ class ApiConfig {
     return ("Bearer }");
   }
 
+  String middleWare = 'mobile';
   //Auth
-  String get login => '$domain/api/login';
-  String get register => '$domain/api/register';
+  String get login => '$domain/$middleWare/login';
+  String get register => '$domain/$middleWare/register';
 
   //Profile
-  String getProfile = "/api/customers/profile";
-  String updateProfile = "/api/customers/profile";
-  String uploadImage = "/api/upload";
+  String get getProfile => "$domain/$middleWare/customers/profile";
+  String get updateProfile => "$domain/$middleWare/customers/profile";
+  String get uploadImage => "$domain/$middleWare/upload";
 
   String get logout => '';
 
@@ -55,6 +56,10 @@ class ApiConfig {
   String get submitBagDetails => '/api/bags';
   String get uploadVideoBase64 => '';
   String get uploadVideo => '';
+  String get getBags => '$domain/$middleWare/bags/';
+
+  // recycling centers
+  String get getRecyclingCenter => '$domain/$middleWare/addbranch';
 
   // Category
   String get getHomeFeaturedCategories => '$domain/api/getCategoriesListForWeb';

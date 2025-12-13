@@ -1,56 +1,27 @@
-import 'dart:io';
-import 'package:equatable/equatable.dart';
-import '../model/material_item.dart';
+import 'package:cycleiq_saas_mobile/src/bag_details/model/bag_details.dart';
 
 enum BagDetailsStatus { initial, loading, success, failure }
 
-class BagDetailsState extends Equatable {
-  final List<MaterialItem> materials;
-  final List<File> pickedImages;
-  final File? pickedVideo;
-  final String notes;
+class BagDetailsState {
   final BagDetailsStatus status;
+  final BagDetailsModel? bag;
   final String? error;
-  final String bagQrId;
 
-  const BagDetailsState({
-    this.materials = const [],
-    this.pickedImages = const [],
-    this.pickedVideo,
-    this.notes = '',
+  BagDetailsState({
     this.status = BagDetailsStatus.initial,
+    this.bag,
     this.error,
-    this.bagQrId = '',
   });
 
   BagDetailsState copyWith({
-    List<MaterialItem>? materials,
-    List<File>? pickedImages,
-    File? pickedVideo,
-    String? notes,
     BagDetailsStatus? status,
+    BagDetailsModel? bag,
     String? error,
-    String? bagQrId,
   }) {
     return BagDetailsState(
-      materials: materials ?? this.materials,
-      pickedImages: pickedImages ?? this.pickedImages,
-      pickedVideo: pickedVideo ?? this.pickedVideo,
-      notes: notes ?? this.notes,
       status: status ?? this.status,
-      error: error,
-      bagQrId: bagQrId ?? this.bagQrId,
+      bag: bag ?? this.bag,
+      error: error ?? this.error,
     );
   }
-
-  @override
-  List<Object?> get props => [
-    materials,
-    pickedImages,
-    pickedVideo,
-    notes,
-    status,
-    error,
-    bagQrId,
-  ];
 }

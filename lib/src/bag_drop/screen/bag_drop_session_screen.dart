@@ -1,22 +1,23 @@
+import 'package:cycleiq_saas_mobile/core/utils/widgets/app_primary_appbar.dart';
 import 'package:cycleiq_saas_mobile/src/bag_drop/widget/bds_center_card.dart';
 import 'package:cycleiq_saas_mobile/src/bag_drop/widget/bds_crv_limits_button.dart';
-import 'package:cycleiq_saas_mobile/src/bag_drop/widget/bds_header.dart';
 import 'package:cycleiq_saas_mobile/src/bag_drop/widget/bds_start_session_button.dart';
 import 'package:cycleiq_saas_mobile/src/bag_drop/widget/bds_step_card.dart';
 import 'package:flutter/material.dart';
 
 class BagDropSessionScreen extends StatelessWidget {
-  const BagDropSessionScreen({super.key});
+  final String recyclingCenter;
+  const BagDropSessionScreen({super.key, required this.recyclingCenter});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppPrimaryAppBar(title: "Bag-Drop Session"),
       backgroundColor: Colors.grey.shade100,
       body: SafeArea(
         child: Column(
           children: [
-            const BDSHeader(),
-
+            // const BDSHeader(),
             Expanded(
               child: SingleChildScrollView(
                 padding: const EdgeInsets.symmetric(horizontal: 18),
@@ -72,7 +73,7 @@ class BagDropSessionScreen extends StatelessWidget {
                     const SizedBox(height: 20),
                     const BDSCRVLimitsButton(),
                     const SizedBox(height: 20),
-                    const BDSStartSessionButton(),
+                    BDSStartSessionButton(recyclingCenter: recyclingCenter),
                   ],
                 ),
               ),

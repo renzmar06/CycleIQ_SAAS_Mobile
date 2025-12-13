@@ -20,6 +20,49 @@ class _LoginScreenState extends State<LoginScreen> {
   final TextEditingController emailCtrl = TextEditingController();
   final TextEditingController passwordCtrl = TextEditingController();
 
+  // ---------------- VALIDATIONS ----------------
+
+  bool _isValidEmail(String email) {
+    final regex = RegExp(r'^[\w\.-]+@[\w\.-]+\.\w+$');
+    return regex.hasMatch(email);
+  }
+
+  void _showError(String message) {
+    ScaffoldMessenger.of(
+      context,
+    ).showSnackBar(SnackBar(content: Text(message)));
+  }
+
+  void _validateAndLogin(BuildContext context) {
+    final email = emailCtrl.text.trim();
+    final password = passwordCtrl.text.trim();
+
+    // REQUIRED FIELDS
+    if (email.isEmpty || password.isEmpty) {
+      _showError("Please fill out all fields");
+      return;
+    }
+
+    // EMAIL FORMAT
+    if (!_isValidEmail(email)) {
+      _showError("Please enter a valid email address");
+      return;
+    }
+
+    // PASSWORD LENGTH
+    // if (password.length < 6) {
+    //   _showError("Password must be at least 6 characters");
+    //   return;
+    // }
+
+    // TRIGGER BLoC
+    context.read<LoginBloc>().add(
+      LoginSubmitted(email: email, password: password),
+    );
+  }
+
+  // ---------------- UI ----------------
+
   @override
   Widget build(BuildContext context) {
     return BlocListener<LoginBloc, LoginState>(
@@ -27,9 +70,7 @@ class _LoginScreenState extends State<LoginScreen> {
         if (state.status == LoginStatus.success) {
           AppNav.push(context, '/entryPoint');
         } else if (state.status == LoginStatus.failure) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text(state.errorModel?.message ?? "Error")),
-          );
+          _showError(state.errorModel?.message ?? "Login failed");
         }
       },
       child: Scaffold(
@@ -96,15 +137,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       height: 58,
                       text: "Login",
                       loading: state.status == LoginStatus.loading,
-                      onPressed: () {
-                        context.read<LoginBloc>().add(
-                          LoginSubmitted(
-                            email: emailCtrl.text.trim(),
-                            password: passwordCtrl.text.trim(),
-                          ),
-                        );
-                        // AppNav.push(context, '/entryPoint');
-                      },
+                      onPressed: () => _validateAndLogin(context),
                     );
                   },
                 ),

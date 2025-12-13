@@ -1,7 +1,15 @@
 import 'package:flutter/material.dart';
 
 class EPRecyclingImpact extends StatelessWidget {
-  const EPRecyclingImpact({super.key});
+  final String totalBags;
+  final String kgCo2Saved;
+  final String totalEarned;
+  const EPRecyclingImpact({
+    super.key,
+    required this.totalBags,
+    required this.kgCo2Saved,
+    required this.totalEarned,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -41,19 +49,19 @@ class EPRecyclingImpact extends StatelessWidget {
               _impactCard(
                 icon: Icons.inventory_2_outlined,
                 iconColor: Colors.green,
-                value: "0",
+                value: totalBags,
                 label: "Total Bags",
               ),
               _impactCard(
                 icon: Icons.eco_outlined,
                 iconColor: Colors.green,
-                value: "0.0",
+                value: kgCo2Saved,
                 label: "kg CO₂ Saved",
               ),
               _impactCard(
                 icon: Icons.payments_outlined,
                 iconColor: Colors.orange,
-                value: "\$0.00",
+                value: totalEarned,
                 label: "Total Earned",
               ),
               _impactCard(

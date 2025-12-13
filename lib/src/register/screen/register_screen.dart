@@ -24,6 +24,73 @@ class _RegisterScreenState extends State<RegisterScreen> {
   final passwordCtrl = TextEditingController();
   final confirmPasswordCtrl = TextEditingController();
 
+  /// EMAIL VALIDATION
+  bool _isValidEmail(String email) {
+    final regex = RegExp(r'^[\w\.-]+@[\w\.-]+\.\w+$');
+    return regex.hasMatch(email);
+  }
+
+  /// PHONE VALIDATION (10 digits)
+  bool _isValidPhone(String phone) {
+    final regex = RegExp(r'^\d{10}$');
+    return regex.hasMatch(phone);
+  }
+
+  /// SHOW ERROR
+  void _showError(String message) {
+    ScaffoldMessenger.of(
+      context,
+    ).showSnackBar(SnackBar(content: Text(message)));
+  }
+
+  /// VALIDATE AND SUBMIT
+  void _validateAndSubmit(BuildContext context) {
+    final name = nameCtrl.text.trim();
+    final email = emailCtrl.text.trim();
+    final phone = phoneCtrl.text.trim();
+    final password = passwordCtrl.text.trim();
+    final confirmPassword = confirmPasswordCtrl.text.trim();
+
+    // REQUIRED CHECK
+    if (name.isEmpty ||
+        email.isEmpty ||
+        phone.isEmpty ||
+        password.isEmpty ||
+        confirmPassword.isEmpty) {
+      _showError("Please fill out all fields");
+      return;
+    }
+
+    // EMAIL CHECK
+    if (!_isValidEmail(email)) {
+      _showError("Please enter a valid email address");
+      return;
+    }
+
+    // PHONE CHECK
+    if (!_isValidPhone(phone)) {
+      _showError("Phone number must be exactly 10 digits");
+      return;
+    }
+
+    // PASSWORD MATCH
+    if (password != confirmPassword) {
+      _showError("Passwords do not match");
+      return;
+    }
+
+    // IF ALL OK → TRIGGER BLOC
+    context.read<RegisterBloc>().add(
+      RegisterSubmitted(
+        name: name,
+        email: email,
+        phone: phone,
+        password: password,
+        confirmPassword: confirmPassword,
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return BlocListener<RegisterBloc, RegisterState>(
@@ -31,9 +98,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
         if (state.status == RegisterStatus.success) {
           context.pop(); // go back to login
         } else if (state.status == RegisterStatus.failure) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text(state.errorModel?.message ?? "Error")),
-          );
+          _showError(state.errorModel?.message ?? "Registration failed");
         }
       },
       child: Scaffold(
@@ -45,7 +110,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 const SizedBox(height: 40),
-                // Logo
+
+                /// LOGO
                 Center(
                   child: Image.asset(ImageStrings.logoTransparent, height: 85),
                 ),
@@ -64,48 +130,44 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
                 const SizedBox(height: 30),
 
-                // FULL NAME
+                /// FULL NAME
                 AppTextField(
-                  label: "Full Name",
+                  label: "Full Name *",
                   controller: nameCtrl,
                   prefixIcon: Icons.person_outline,
                 ),
-
                 const SizedBox(height: 16),
 
-                // EMAIL
+                /// EMAIL
                 AppTextField(
-                  label: "Email",
+                  label: "Email *",
                   controller: emailCtrl,
                   prefixIcon: Icons.email_outlined,
                   keyboardType: TextInputType.emailAddress,
                 ),
-
                 const SizedBox(height: 16),
 
-                // PHONE
+                /// PHONE
                 AppTextField(
-                  label: "Phone Number",
+                  label: "Phone Number *",
                   controller: phoneCtrl,
                   prefixIcon: Icons.phone_android,
                   keyboardType: TextInputType.phone,
                 ),
-
                 const SizedBox(height: 16),
 
-                // PASSWORD
+                /// PASSWORD
                 AppTextField(
-                  label: "Password",
+                  label: "Password *",
                   controller: passwordCtrl,
                   prefixIcon: Icons.lock_outline,
                   isPassword: true,
                 ),
-
                 const SizedBox(height: 16),
 
-                // CONFIRM PASSWORD
+                /// CONFIRM PASSWORD
                 AppTextField(
-                  label: "Confirm Password",
+                  label: "Confirm Password *",
                   controller: confirmPasswordCtrl,
                   prefixIcon: Icons.lock_outline,
                   isPassword: true,
@@ -113,29 +175,20 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
                 const SizedBox(height: 28),
 
-                // REGISTER BUTTON
+                /// REGISTER BUTTON
                 BlocBuilder<RegisterBloc, RegisterState>(
                   builder: (context, state) {
                     return AppButton(
                       text: "Create Account",
                       loading: state.status == RegisterStatus.loading,
-                      onPressed: () {
-                        context.read<RegisterBloc>().add(
-                          RegisterSubmitted(
-                            name: nameCtrl.text.trim(),
-                            email: emailCtrl.text.trim(),
-                            phone: phoneCtrl.text.trim(),
-                            password: passwordCtrl.text.trim(),
-                            confirmPassword: confirmPasswordCtrl.text.trim(),
-                          ),
-                        );
-                      },
+                      onPressed: () => _validateAndSubmit(context),
                     );
                   },
                 ),
 
                 const SizedBox(height: 22),
 
+                /// LOGIN LINK
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [

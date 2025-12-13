@@ -36,7 +36,7 @@ class ShowMyQRCard extends StatelessWidget {
         ),
         SizedBox(height: 20),
         GestureDetector(
-          onTap: () => AppNav.push(context, '/bag-details/:12345678'),
+          onTap: () => AppNav.push(context, '/bag-details'),
           child: Container(
             padding: const EdgeInsets.symmetric(vertical: 20),
             width: double.infinity,

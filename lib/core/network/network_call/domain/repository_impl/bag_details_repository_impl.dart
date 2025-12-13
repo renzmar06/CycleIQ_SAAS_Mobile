@@ -4,7 +4,9 @@ import 'package:cycleiq_saas_mobile/core/network/network_call/data/data_source/b
 import 'package:cycleiq_saas_mobile/core/network/network_call/domain/repository/bag_details_repository.dart';
 import 'package:cycleiq_saas_mobile/core/network/network_call/network_info.dart';
 import 'package:cycleiq_saas_mobile/core/shared_pref/preferences_utils.dart';
-import 'package:cycleiq_saas_mobile/src/bag_details/model/bag_details_request.dart';
+import 'package:cycleiq_saas_mobile/src/add_bag_details/model/bag_details_request.dart';
+import 'package:cycleiq_saas_mobile/src/bag_details/model/bag_details.dart';
+import 'package:cycleiq_saas_mobile/src/bag_session/model/bag_model.dart';
 import 'package:dio/dio.dart';
 
 class BagDetailsRepositoryImpl implements BagDetailsRepository {
@@ -25,7 +27,9 @@ class BagDetailsRepositoryImpl implements BagDetailsRepository {
   Future<String> uploadVideo(File file) => remoteDataSource.uploadVideo(file);
 
   @override
-  Future submitBagDetails(BagDetailsRequest request) async {
+  Future<Map<String, dynamic>> submitBagDetails(
+    BagDetailsRequest request,
+  ) async {
     // Build multipart EXACTLY like your cURL:
     final form = FormData();
 
@@ -56,5 +60,15 @@ class BagDetailsRepositoryImpl implements BagDetailsRepository {
     }
 
     return remoteDataSource.submitBagDetails(form);
+  }
+
+  @override
+  Future<List<BagModel>> getBags(String userId) {
+    return remoteDataSource.fetchBags(userId);
+  }
+
+  @override
+  Future<BagDetailsModel> getBagByQrId(String qrId) {
+    return remoteDataSource.fetchBagByQr(qrId);
   }
 }

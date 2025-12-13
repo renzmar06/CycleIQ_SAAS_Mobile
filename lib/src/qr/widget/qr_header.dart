@@ -10,28 +10,28 @@ class QRHeader extends StatelessWidget {
     return Column(
       children: [
         Row(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             GestureDetector(
               onTap: () => context.pop(),
               child: Container(
                 padding: const EdgeInsets.all(10),
                 decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10),
                   color: Colors.white.withOpacity(0.2),
-                  shape: BoxShape.rectangle,
+                  shape: BoxShape.circle,
                 ),
-                child: const Icon(Icons.arrow_back, color: Colors.white),
+                child: const Icon(Icons.close_rounded, color: Colors.white),
               ),
             ),
-            const SizedBox(width: 12),
-            const Text(
-              "My Universal QR",
-              style: TextStyle(
-                fontSize: 22,
-                fontWeight: FontWeight.w700,
-                color: Colors.white,
-              ),
-            ),
+            // const SizedBox(width: 12),
+            // const Text(
+            //   "My Universal QR",
+            //   style: TextStyle(
+            //     fontSize: 22,
+            //     fontWeight: FontWeight.w700,
+            //     color: Colors.white,
+            //   ),
+            // ),
           ],
         ),
         const SizedBox(height: 32),

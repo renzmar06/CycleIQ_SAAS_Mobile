@@ -26,6 +26,9 @@ class ProfileUser {
   final String notes;
   final String idProofImage;
   final String addressProofImage;
+  final String totalBags;
+  final String kgCo2Saved;
+  final String totalEarned;
 
   ProfileUser({
     required this.id,
@@ -41,6 +44,9 @@ class ProfileUser {
     required this.notes,
     required this.idProofImage,
     required this.addressProofImage,
+    required this.totalBags,
+    required this.kgCo2Saved,
+    required this.totalEarned,
   });
 
   factory ProfileUser.fromJson(Map<String, dynamic> json) {
@@ -58,6 +64,9 @@ class ProfileUser {
       notes: json['notes'] ?? "",
       idProofImage: json['idProofImage'] ?? "",
       addressProofImage: json['addressProofImage'] ?? "",
+      totalBags: json['totalBags'].toString(),
+      kgCo2Saved: json['kgCo2Saved'].toString(),
+      totalEarned: json['totalEarned'].toString(),
     );
   }
 }

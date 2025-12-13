@@ -1,12 +1,16 @@
 import 'package:cycleiq_saas_mobile/core/di/injection_container_common.dart';
+import 'package:cycleiq_saas_mobile/src/add_bag_details/bloc/bag_details_bloc.dart';
 import 'package:cycleiq_saas_mobile/src/bag_details/bloc/bag_details_bloc.dart';
+import 'package:cycleiq_saas_mobile/src/bag_session/bloc/bag_bloc.dart';
 import 'package:cycleiq_saas_mobile/src/dropoff_location/bloc/dropoff_bloc.dart';
 import 'package:cycleiq_saas_mobile/src/expected_bag_count/bloc/expected_bag_count_bloc.dart';
 import 'package:cycleiq_saas_mobile/src/home/bloc/home_bloc.dart';
 import 'package:cycleiq_saas_mobile/src/login/bloc/login_bloc.dart';
 import 'package:cycleiq_saas_mobile/src/notification/bloc/notification_bloc.dart';
+import 'package:cycleiq_saas_mobile/src/operator_checkin/bloc/checkin_bloc.dart';
 import 'package:cycleiq_saas_mobile/src/profile/bloc/profile_bloc.dart';
 import 'package:cycleiq_saas_mobile/src/register/bloc/register_bloc.dart';
+import 'package:cycleiq_saas_mobile/src/register_bags/bloc/register_bags_bloc.dart';
 import 'package:cycleiq_saas_mobile/src/tickets/bloc/tickets_bloc.dart';
 import 'package:cycleiq_saas_mobile/src/tickets_details/bloc/ticket_bloc.dart';
 
@@ -35,13 +39,25 @@ Future<void> initPresentationDI() async {
   serviceLocator.registerFactory<DropOffBloc>(
     () => DropOffBloc(repository: serviceLocator()),
   );
-  serviceLocator.registerFactory<BagDetailsBloc>(
-    () => BagDetailsBloc(repository: serviceLocator()),
+  serviceLocator.registerFactory<AddBagDetailsBloc>(
+    () => AddBagDetailsBloc(repository: serviceLocator()),
   );
   serviceLocator.registerFactory<TicketsBloc>(
     () => TicketsBloc(repository: serviceLocator()),
   );
   serviceLocator.registerFactory<TicketBloc>(
     () => TicketBloc(repository: serviceLocator()),
+  );
+  serviceLocator.registerFactory<BagBloc>(
+    () => BagBloc(repository: serviceLocator()),
+  );
+  serviceLocator.registerFactory<BagDetailsBloc>(
+    () => BagDetailsBloc(repository: serviceLocator()),
+  );
+  serviceLocator.registerFactory<RegisterBagsBloc>(
+    () => RegisterBagsBloc(repository: serviceLocator()),
+  );
+  serviceLocator.registerFactory<CheckInBloc>(
+    () => CheckInBloc(repository: serviceLocator()),
   );
 }

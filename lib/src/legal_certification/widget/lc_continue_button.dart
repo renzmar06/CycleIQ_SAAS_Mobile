@@ -23,9 +23,7 @@ class LcContinueButton extends StatelessWidget {
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(12),
           gradient: enabled
-              ? const LinearGradient(
-                  colors: [Color(0xFF4CB96F), Color(0xFF1A73E8)],
-                )
+              ? const LinearGradient(colors: [Colors.green, Colors.green])
               : LinearGradient(
                   colors: [Colors.grey.shade300, Colors.grey.shade400],
                 ),

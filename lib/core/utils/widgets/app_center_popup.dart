@@ -15,6 +15,7 @@ class AppCenterPopup {
     showGeneralDialog(
       context: context,
       barrierDismissible: true,
+      useRootNavigator: true, // 🔥 CRITICAL
       barrierLabel: "",
       transitionDuration: const Duration(milliseconds: 250),
       pageBuilder: (_, _, _) {
